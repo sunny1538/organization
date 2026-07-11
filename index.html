@@ -1,203 +1,860 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TildaBite - Location Picker Demo</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<meta charset="UTF-8">
+<title>नशा मुक्ति अभियान — आवेदन प्रणाली</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f5f0;
-    padding: 20px;
-  }
-  .container {
-    max-width: 500px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
-  h1 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #1a1a1a;
-  }
-  .subtitle {
-    font-size: 13px;
-    color: #777;
-    margin-bottom: 16px;
-  }
-  #status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #444;
-    margin-bottom: 12px;
-    padding: 10px 14px;
-    background: #fff8e1;
-    border-radius: 10px;
-    border-left: 3px solid #f5a623;
-  }
-  #status.confirmed {
-    background: #e8f5e9;
-    border-left-color: #4caf50;
-  }
-  #map {
-    height: 340px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #eee;
-  }
-  #addrBox {
-    margin-top: 12px;
-    padding: 12px 14px;
-    background: #f8f8f5;
-    border-radius: 10px;
-    font-size: 13px;
-    color: #333;
-  }
-  #addrBox strong { display: block; font-size: 14px; margin-bottom: 4px; color: #111; }
-  .btn-row { display: flex; gap: 10px; margin-top: 14px; }
-  button {
-    flex: 1;
-    padding: 13px;
-    border-radius: 10px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  #locateBtn { background: #eef2ff; color: #4f46e5; }
-  #locateBtn:hover { background: #e0e7ff; }
-  #confirmBtn { background: #ff5722; color: white; }
-  #confirmBtn:hover { background: #f4511e; }
-  .note {
-    margin-top: 14px;
-    font-size: 12px;
-    color: #999;
-    line-height: 1.5;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@500;700;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --forest:#123524;
+  --forest-2:#1B4B34;
+  --sage:#4C7A63;
+  --paper:#F7F3E8;
+  --paper-2:#EFE8D6;
+  --gold:#C79A3D;
+  --gold-2:#E3BE63;
+  --maroon:#8C2F26;
+  --maroon-2:#A8443A;
+  --ink:#1C2620;
+  --ink-soft:#4A5850;
+  --line:#D8CFB2;
+  --white:#FFFDF8;
+}
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;}
+.app{min-height:100vh;background:
+  radial-gradient(circle at 10% 0%, #1c4a34 0%, transparent 45%),
+  var(--paper);}
+
+.header{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-2) 100%);
+  color:var(--white);padding:22px 20px 26px;position:relative;overflow:hidden;
+  border-bottom:4px solid var(--gold);}
+.header::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+  border-radius:50%;border:1px solid rgba(227,190,99,0.18);}
+.header::before{content:"";position:absolute;right:-10px;top:20px;width:150px;height:150px;
+  border-radius:50%;border:1px solid rgba(227,190,99,0.14);}
+.header-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;position:relative;z-index:1;}
+.logo-seal{width:56px;height:56px;border-radius:50%;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border:2px solid rgba(255,255,255,0.5);font-size:26px;}
+.header h1{font-family:'Noto Serif Devanagari',serif;font-weight:900;font-size:26px;margin:0 0 4px;letter-spacing:0.3px;}
+.header p{margin:0;font-size:13.5px;color:var(--gold-2);letter-spacing:0.4px;}
+.conn-dot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--gold-2);
+  background:rgba(0,0,0,0.18);padding:4px 10px;border-radius:20px;position:absolute;right:20px;top:20px;}
+.conn-dot .dot{width:7px;height:7px;border-radius:50%;background:#6FCF97;}
+.conn-dot.off .dot{background:#E06A5E;}
+
+.tabbar{max-width:920px;margin:0 auto;display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap;}
+.tab-btn{border:1px solid var(--line);background:var(--white);color:var(--ink-soft);
+  padding:10px 16px;border-radius:10px 10px 0 0;font-size:14.5px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:all .15s ease;border-bottom:none;}
+.tab-btn.active{background:var(--paper);color:var(--forest);border-color:var(--forest);
+  box-shadow:0 -2px 0 var(--gold) inset;}
+.tab-btn:hover:not(.active){background:var(--paper-2);}
+
+.content{max-width:920px;margin:0 auto;padding:22px 20px 60px;}
+.card{background:var(--white);border:1px solid var(--line);border-radius:4px;
+  box-shadow:0 1px 3px rgba(18,53,36,0.06);}
+
+.form-meta{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:18px 22px;border-bottom:2px solid var(--forest);flex-wrap:wrap;gap:10px;}
+.form-meta h2{font-family:'Noto Serif Devanagari',serif;font-size:20px;margin:0;color:var(--forest);}
+.form-meta .meta-right{text-align:right;font-size:12.5px;color:var(--ink-soft);}
+.fee-note{display:inline-flex;align-items:center;gap:8px;background:#FCF6E5;
+  border:1px solid var(--gold-2);color:#7A5B12;padding:8px 14px;border-radius:6px;
+  font-size:13.5px;font-weight:600;margin:16px 22px 0;}
+
+.section{padding:18px 22px;border-bottom:1px solid var(--line);}
+.section:last-of-type{border-bottom:none;}
+.section-title{display:flex;align-items:center;gap:10px;margin:0 0 16px;}
+.section-num{width:26px;height:26px;border-radius:50%;background:var(--forest);color:var(--white);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-title h3{font-family:'Noto Serif Devanagari',serif;font-size:16.5px;margin:0;color:var(--forest);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+.field label{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.field label .req{color:var(--maroon);}
+.field input[type=text],.field input[type=tel],.field input[type=email],
+.field input[type=date],.field input[type=number],.field select,.field textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;
+  font-family:inherit;font-size:14.5px;background:var(--paper);color:var(--ink);}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--sage);outline-offset:1px;background:var(--white);}
+.field textarea{resize:vertical;min-height:64px;}
+.hint{font-size:12px;color:var(--ink-soft);margin-top:4px;}
+.radio-row,.check-row{display:flex;gap:18px;flex-wrap:wrap;padding-top:2px;}
+.radio-opt,.check-opt{display:flex;align-items:center;gap:7px;font-size:14px;cursor:pointer;}
+.radio-opt input,.check-opt input{width:16px;height:16px;accent-color:var(--forest);cursor:pointer;}
+
+.photo-box{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.photo-preview{width:110px;height:110px;border-radius:8px;border:2px dashed var(--line);
+  background:var(--paper);display:flex;align-items:center;justify-content:center;overflow:hidden;
+  color:var(--ink-soft);font-size:11.5px;text-align:center;flex-shrink:0;}
+.photo-preview img{width:100%;height:100%;object-fit:cover;}
+.photo-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.photo-actions label.btn{display:inline-flex;align-items:center;gap:6px;}
+
+.declaration{background:var(--paper-2);border:1px dashed var(--line);border-radius:6px;padding:14px 16px;font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+.declaration label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;color:var(--ink);font-weight:500;}
+.declaration input{margin-top:3px;width:16px;height:16px;accent-color:var(--forest);flex-shrink:0;}
+
+.submit-bar{padding:20px 22px;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;}
+.btn{border:none;border-radius:7px;padding:12px 26px;font-family:inherit;font-size:15px;
+  font-weight:700;cursor:pointer;transition:transform .1s ease, filter .15s ease;}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--forest);color:var(--white);}
+.btn-primary:hover{filter:brightness(1.1);}
+.btn-primary:disabled{background:#9AA79E;cursor:not-allowed;}
+.btn-gold{background:var(--gold);color:#3B2C09;}
+.btn-outline{background:transparent;border:1.5px solid var(--forest);color:var(--forest);}
+.btn-approve{background:#2C6E49;color:#fff;}
+.btn-decline{background:var(--maroon);color:#fff;}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:6px;}
+.err{color:var(--maroon);font-size:12.5px;margin-top:8px;}
+
+.success-wrap{text-align:center;padding:50px 24px;}
+.stamp{width:120px;height:120px;border-radius:50%;border:4px solid var(--forest);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  color:var(--forest);font-weight:900;font-size:15px;text-align:center;line-height:1.3;
+  transform:rotate(-8deg);animation:stampIn .5s cubic-bezier(.2,1.4,.4,1);
+  font-family:'Noto Serif Devanagari',serif;box-shadow:0 0 0 3px var(--paper) inset;}
+@keyframes stampIn{from{transform:rotate(-8deg) scale(2.4);opacity:0;}to{transform:rotate(-8deg) scale(1);opacity:1;}}
+.app-no{display:inline-block;background:var(--paper-2);border:1px solid var(--line);
+  padding:10px 18px;border-radius:8px;font-family:monospace;font-size:18px;font-weight:700;
+  letter-spacing:1px;color:var(--forest);margin:14px 0;}
+
+.status-search{display:flex;gap:10px;flex-wrap:wrap;padding:22px;}
+.status-search input{flex:1;min-width:180px;padding:11px 14px;border:1px solid var(--line);
+  border-radius:7px;font-family:inherit;font-size:14.5px;background:var(--paper);}
+.status-card{margin:0 22px 22px;border:1px solid var(--line);border-radius:8px;padding:22px;
+  background:var(--paper-2);text-align:center;}
+.status-photo{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid var(--white);
+  box-shadow:0 0 0 2px var(--line);margin-bottom:10px;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;
+  font-size:13px;font-weight:700;letter-spacing:0.3px;}
+.badge.pending{background:#FCEFD0;color:#8A6416;}
+.badge.approved{background:#D9F0DE;color:#1F6B37;}
+.badge.declined{background:#F6DAD6;color:var(--maroon);}
+
+.admin-login{max-width:380px;margin:40px auto;padding:30px;text-align:center;}
+.admin-login input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
+  font-family:inherit;font-size:14.5px;margin:14px 0;background:var(--paper);text-align:center;letter-spacing:2px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr);}}
+.stat{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;}
+.stat .num{font-size:24px;font-weight:800;color:var(--forest);font-family:'Noto Serif Devanagari',serif;}
+.stat .lbl{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+.admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+.admin-toolbar input[type=text]{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);
+  border-radius:7px;font-family:inherit;font-size:14px;background:var(--white);}
+.filter-chip{padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--white);
+  font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-soft);}
+.filter-chip.active{background:var(--forest);color:#fff;border-color:var(--forest);}
+.app-row{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px 16px;
+  margin-bottom:10px;cursor:pointer;transition:box-shadow .15s ease;display:flex;gap:12px;align-items:center;}
+.app-row:hover{box-shadow:0 2px 8px rgba(18,53,36,0.08);}
+.app-row-thumb{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper-2);flex-shrink:0;}
+.app-row-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;flex:1;}
+.app-row-name{font-weight:700;font-size:15px;color:var(--forest);}
+.app-row-sub{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
+.empty{text-align:center;padding:50px 20px;color:var(--ink-soft);}
+.loading{text-align:center;padding:40px;color:var(--ink-soft);font-size:14px;}
+
+.modal-bg{position:fixed;inset:0;background:rgba(18,53,36,0.55);display:flex;align-items:center;
+  justify-content:center;z-index:50;padding:20px;}
+.modal{background:var(--white);border-radius:10px;max-width:560px;width:100%;max-height:86vh;
+  overflow-y:auto;padding:0;}
+.modal-head{background:var(--forest);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;
+  align-items:center;border-radius:10px 10px 0 0;position:sticky;top:0;}
+.modal-head h3{margin:0;font-family:'Noto Serif Devanagari',serif;font-size:17px;}
+.modal-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;}
+.modal-body{padding:18px 22px;}
+.modal-photo{width:96px;height:96px;border-radius:8px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;}
+.detail-row{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--paper-2);font-size:13.5px;}
+.detail-row .k{color:var(--ink-soft);font-weight:600;}
+.modal-actions{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--forest);
+  color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:600;z-index:100;
+  box-shadow:0 4px 14px rgba(0,0,0,0.2);}
+.note{font-size:11.5px;color:var(--ink-soft);text-align:center;padding:10px 22px 0;}
+.setup-warning{background:#FCEFD0;border:1px solid var(--gold-2);color:#7A5B12;padding:14px 18px;
+  border-radius:8px;font-size:13px;margin-bottom:18px;line-height:1.6;}
 </style>
 </head>
 <body>
+<div id="root"></div>
 
-<div class="container">
-  <h1>📍 Set delivery location</h1>
-  <p class="subtitle">Drag the pin or tap map to set exact spot</p>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useRef,useCallback} = React;
 
-  <div id="status">📍 Fetching your location...</div>
+/* ---------- Supabase setup ---------- */
+const SUPABASE_URL = "https://teoudlvdneuxjqftnfnr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_hJMf8h4IyVydRoiDJ1VHCA_dwxyDfjQ";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const TABLE = "registrations";
 
-  <div id="map"></div>
+function pad(n,len){return String(n).padStart(len,'0');}
+function todayStr(){
+  const d=new Date();
+  return `${pad(d.getDate(),2)}/${pad(d.getMonth()+1,2)}/${d.getFullYear()}`;
+}
+function calcAge(dobStr){
+  if(!dobStr) return '';
+  const dob=new Date(dobStr);
+  if(isNaN(dob)) return '';
+  const t=new Date();
+  let age=t.getFullYear()-dob.getFullYear();
+  const m=t.getMonth()-dob.getMonth();
+  if(m<0 || (m===0 && t.getDate()<dob.getDate())) age--;
+  return age>=0 && age<120 ? age : '';
+}
 
-  <div id="addrBox">
-    <strong>Selected point</strong>
-    <span id="coords">Lat: --, Lng: --</span>
-  </div>
+const AREA_OPTIONS=[
+  "शहरी क्षेत्र जागरूकता","ग्रामीण क्षेत्र जागरूकता","स्कूल/कॉलेज कार्यक्रम",
+  "पुनर्वास केंद्र सहायता","कार्यालय प्रशासन","अन्य"
+];
 
-  <div class="btn-row">
-    <button id="locateBtn">🎯 Use my location</button>
-    <button id="toggleViewBtn">🛰️ Satellite view</button>
-  </div>
-  <div class="btn-row">
-    <button id="confirmBtn">✅ Deliver here</button>
-  </div>
+const emptyForm={
+  position:"", name:"", parentName:"", dob:"", gender:"", mobile:"", email:"",
+  village:"", post:"", tehsil:"", district:"", state:"", pin:"",
+  qualification:"", qualificationOther:"", board:"", passYear:"", percent:"",
+  experienceDetail:"", experienceYears:"",
+  hasVehicle:"", vehicleNo:"",
+  hasLicense:"", licenseNo:"",
+  area:"", docs:[], docsOther:"",
+  place:"", signature:"", declared:false,
+  photo:""
+};
 
-  <p class="note">
-    Yeh real GPS use karta hai (mobile pe zyada accurate hoga, laptop pe WiFi-based approx location degi).
-    Zoom karke dekho — gali/building level tak precise pin drop hoti hai, bilkul Swiggy jaisa.
-  </p>
-</div>
+function genAppNo(existingCount){
+  const y=new Date().getFullYear();
+  return `NMA/${y}/${pad(existingCount+1,4)}`;
+}
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  const defaultLat = 22.9676, defaultLng = 76.0534;
-  const map = L.map('map').setView([defaultLat, defaultLng], 14);
+/* camelCase <-> snake_case row mapping */
+function toRow(f){
+  return {
+    app_no: f.id, position: f.position, name: f.name, parent_name: f.parentName,
+    dob: f.dob || null, gender: f.gender, mobile: f.mobile, email: f.email,
+    village: f.village, post: f.post, tehsil: f.tehsil, district: f.district,
+    state: f.state, pin: f.pin,
+    qualification: f.qualification, qualification_other: f.qualificationOther,
+    board: f.board, pass_year: f.passYear, percent: f.percent,
+    experience_detail: f.experienceDetail, experience_years: f.experienceYears,
+    has_vehicle: f.hasVehicle, vehicle_no: f.vehicleNo,
+    has_license: f.hasLicense, license_no: f.licenseNo,
+    area: f.area, docs: f.docs, docs_other: f.docsOther,
+    place: f.place, signature: f.signature,
+    photo_base64: f.photo || null,
+    status: f.status, submitted_at: f.submittedAt
+  };
+}
+function fromRow(r){
+  return {
+    id: r.app_no, position: r.position, name: r.name, parentName: r.parent_name,
+    dob: r.dob, gender: r.gender, mobile: r.mobile, email: r.email,
+    village: r.village, post: r.post, tehsil: r.tehsil, district: r.district,
+    state: r.state, pin: r.pin,
+    qualification: r.qualification, qualificationOther: r.qualification_other,
+    board: r.board, passYear: r.pass_year, percent: r.percent,
+    experienceDetail: r.experience_detail, experienceYears: r.experience_years,
+    hasVehicle: r.has_vehicle, vehicleNo: r.vehicle_no,
+    hasLicense: r.has_license, licenseNo: r.license_no,
+    area: r.area, docs: r.docs || [], docsOther: r.docs_other,
+    place: r.place, signature: r.signature,
+    photo: r.photo_base64 || "",
+    status: r.status, submittedAt: r.submitted_at,
+    submittedDate: r.submitted_at ? new Date(r.submitted_at).toLocaleDateString('en-GB') : ''
+  };
+}
 
-  const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 19
+async function dbInsert(record){
+  const {data,error} = await sb.from(TABLE).insert([toRow(record)]).select();
+  if(error) throw error;
+  return data && data[0] ? fromRow(data[0]) : record;
+}
+async function dbCount(){
+  const {count,error} = await sb.from(TABLE).select('*',{count:'exact',head:true});
+  if(error) return 0;
+  return count || 0;
+}
+async function dbFetchByAppNo(appNo){
+  const {data,error} = await sb.from(TABLE).select('*').eq('app_no',appNo).maybeSingle();
+  if(error || !data) return null;
+  return fromRow(data);
+}
+async function dbFetchAll(){
+  const {data,error} = await sb.from(TABLE).select('*').order('submitted_at',{ascending:false});
+  if(error) throw error;
+  return (data||[]).map(fromRow);
+}
+async function dbUpdateStatus(appNo,status){
+  const {error} = await sb.from(TABLE).update({status}).eq('app_no',appNo);
+  if(error) throw error;
+}
+
+/* resize + compress a photo file to a small base64 jpeg */
+function fileToCompressedBase64(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        const maxW=480;
+        const scale=Math.min(1,maxW/img.width);
+        const canvas=document.createElement('canvas');
+        canvas.width=img.width*scale;
+        canvas.height=img.height*scale;
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',0.7));
+      };
+      img.onerror=reject;
+      img.src=reader.result;
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
   });
-  const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Esri, Maxar, Earthstar Geographics',
-    maxZoom: 19
-  });
-  streetLayer.addTo(map);
-  let onSatellite = false;
+}
 
-  const marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+function Field({label,required,children,hint}){
+  return (
+    <div className="field">
+      <label>{label}{required && <span className="req"> *</span>}</label>
+      {children}
+      {hint && <div className="hint">{hint}</div>}
+    </div>
+  );
+}
 
-  function updateCoords(lat, lng) {
-    document.getElementById('coords').textContent = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
-  }
-  updateCoords(defaultLat, defaultLng);
+function PhotoField({photo,onChange}){
+  const fileRef=useRef(null);
+  const camRef=useRef(null);
+  const [busy,setBusy]=useState(false);
+  const handleFile=async(e)=>{
+    const file=e.target.files[0];
+    if(!file) return;
+    setBusy(true);
+    try{
+      const b64=await fileToCompressedBase64(file);
+      onChange(b64);
+    }catch(err){ /* ignore */ }
+    setBusy(false);
+    e.target.value="";
+  };
+  return (
+    <div className="photo-box">
+      <div className="photo-preview">
+        {photo ? <img src={photo} alt="फोटो"/> : (busy? "लोड हो रहा..." : "फोटो नहीं चुनी गई")}
+      </div>
+      <div className="photo-actions">
+        <label className="btn btn-outline btn-sm">
+          📁 गैलरी से चुनें
+          <input ref={fileRef} type="file" accept="image/*" style={{display:'none'}} onChange={handleFile}/>
+        </label>
+        <label className="btn btn-outline btn-sm">
+          📷 कैमरा से खींचें
+          <input ref={camRef} type="file" accept="image/*" capture="environment" style={{display:'none'}} onChange={handleFile}/>
+        </label>
+        {photo && <button type="button" className="btn btn-outline btn-sm" onClick={()=>onChange("")}>हटाएं</button>}
+      </div>
+    </div>
+  );
+}
 
-  function setStatus(text, confirmed) {
-    const el = document.getElementById('status');
-    el.textContent = text;
-    el.classList.toggle('confirmed', !!confirmed);
-  }
+function RegistrationForm(){
+  const [f,setF]=useState(emptyForm);
+  const [error,setError]=useState("");
+  const [submitting,setSubmitting]=useState(false);
+  const [result,setResult]=useState(null);
 
-  marker.on('dragend', function() {
-    const p = marker.getLatLng();
-    updateCoords(p.lat, p.lng);
-    setStatus('📍 Pin adjusted — drag again or confirm below');
-  });
+  const set=(k,v)=>setF(prev=>({...prev,[k]:v}));
+  const toggleDoc=(doc)=>{
+    setF(prev=>{
+      const has=prev.docs.includes(doc);
+      return {...prev, docs: has? prev.docs.filter(d=>d!==doc): [...prev.docs,doc]};
+    });
+  };
 
-  map.on('click', function(e) {
-    marker.setLatLng(e.latlng);
-    updateCoords(e.latlng.lat, e.latlng.lng);
-    setStatus('📍 Pin adjusted — drag again or confirm below');
-  });
+  const validate=()=>{
+    if(!f.position.trim()) return "कृपया पद हेतु आवेदन भरें।";
+    if(!f.name.trim()) return "कृपया आवेदक का नाम भरें।";
+    if(!f.dob) return "कृपया जन्म तिथि भरें।";
+    if(!f.gender) return "कृपया लिंग चुनें।";
+    if(!/^[6-9]\d{9}$/.test(f.mobile)) return "कृपया मान्य 10 अंकों का मोबाइल नंबर भरें।";
+    if(!f.district.trim() || !f.state.trim()) return "कृपया जिला और राज्य भरें।";
+    if(f.pin && !/^\d{6}$/.test(f.pin)) return "पिन कोड 6 अंकों का होना चाहिए।";
+    if(!f.qualification) return "कृपया शैक्षणिक योग्यता चुनें।";
+    if(!f.hasVehicle) return "कृपया दोपहिया वाहन संबंधी प्रश्न का उत्तर दें।";
+    if(!f.hasLicense) return "कृपया ड्राइविंग लाइसेंस संबंधी प्रश्न का उत्तर दें।";
+    if(!f.area) return "कृपया कार्यक्षेत्र चुनें।";
+    if(!f.declared) return "कृपया घोषणा स्वीकार करें।";
+    if(!f.signature.trim()) return "कृपया हस्ताक्षर हेतु अपना नाम टाइप करें।";
+    return "";
+  };
 
-  function autoLocate() {
-    if (!navigator.geolocation) {
-      setStatus('⚠️ Geolocation not supported, set pin manually');
-      return;
+  const submit=async()=>{
+    const err=validate();
+    if(err){ setError(err); return; }
+    setError(""); setSubmitting(true);
+    try{
+      const count=await dbCount();
+      const appNo=genAppNo(count);
+      const record={...f, id:appNo, status:"pending", submittedAt:new Date().toISOString()};
+      const saved=await dbInsert(record);
+      setResult({...record, submittedDate: todayStr()});
+    }catch(e){
+      setError("जमा करते समय त्रुटि हुई। कृपया सुनिश्चित करें कि Supabase टेबल सही तरीके से बन चुकी है, फिर पुनः प्रयास करें।");
     }
-    setStatus('📍 Fetching your exact location...');
-    navigator.geolocation.getCurrentPosition(
-      function(pos) {
-        const { latitude, longitude } = pos.coords;
-        map.setView([latitude, longitude], 17);
-        marker.setLatLng([latitude, longitude]);
-        updateCoords(latitude, longitude);
-        setStatus('✅ Location found — drag pin to fine-tune if needed');
-      },
-      function() {
-        setStatus('⚠️ Location access denied — please drag pin manually');
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
+    setSubmitting(false);
+  };
+
+  if(result){
+    return (
+      <div className="card">
+        <div className="success-wrap">
+          <div className="stamp">आवेदन<br/>प्राप्त हुआ</div>
+          <h2 style={{fontFamily:"'Noto Serif Devanagari',serif",color:"var(--forest)",margin:"0 0 6px"}}>धन्यवाद, {result.name} जी</h2>
+          <p style={{color:"var(--ink-soft)",fontSize:14.5,margin:"0 0 6px"}}>आपका आवेदन सफलतापूर्वक जमा हो गया है। कृपया अपना आवेदन पत्र संख्या सुरक्षित रखें।</p>
+          <div className="app-no">{result.id}</div>
+          <p style={{color:"var(--ink-soft)",fontSize:13}}>आप "स्थिति जांचें" टैब में जाकर मोबाइल नंबर व आवेदन संख्या से अपने आवेदन की स्थिति देख सकते हैं।</p>
+          <button className="btn btn-outline" style={{marginTop:14}} onClick={()=>{setResult(null); setF(emptyForm);}}>नया आवेदन भरें</button>
+        </div>
+      </div>
     );
   }
 
-  document.getElementById('locateBtn').addEventListener('click', autoLocate);
+  return (
+    <div className="card">
+      <div className="form-meta">
+        <h2>नौकरी हेतु आवेदन पत्र</h2>
+        <div className="meta-right">दिनांक: {todayStr()}</div>
+      </div>
+      <div className="fee-note">₹ आवेदन शुल्क: मात्र ₹200/- (केवल दो सौ रुपये मात्र)</div>
 
-  document.getElementById('toggleViewBtn').addEventListener('click', function() {
-    onSatellite = !onSatellite;
-    if (onSatellite) {
-      map.removeLayer(streetLayer);
-      satelliteLayer.addTo(map);
-      this.textContent = '🗺️ Map view';
-    } else {
-      map.removeLayer(satelliteLayer);
-      streetLayer.addTo(map);
-      this.textContent = '🛰️ Satellite view';
+      <div className="section">
+        <Field label="पद हेतु आवेदन" required>
+          <input type="text" value={f.position} onChange={e=>set('position',e.target.value)} placeholder="जिस पद हेतु आवेदन कर रहे हैं वह लिखें"/>
+        </Field>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">1</div><h3>व्यक्तिगत जानकारी</h3></div>
+        <div style={{marginBottom:16}}>
+          <label style={{fontSize:13.5,fontWeight:600,marginBottom:8,display:'block'}}>पासपोर्ट साइज़ फोटो</label>
+          <PhotoField photo={f.photo} onChange={v=>set('photo',v)}/>
+        </div>
+        <div className="grid2">
+          <Field label="आवेदक का नाम" required><input type="text" value={f.name} onChange={e=>set('name',e.target.value)}/></Field>
+          <Field label="पिता / पति का नाम"><input type="text" value={f.parentName} onChange={e=>set('parentName',e.target.value)}/></Field>
+          <Field label="जन्म तिथि" required><input type="date" value={f.dob} onChange={e=>set('dob',e.target.value)}/></Field>
+          <Field label="आयु" hint="जन्म तिथि से स्वतः गणना"><input type="text" value={calcAge(f.dob)} readOnly/></Field>
+          <Field label="मोबाइल नंबर" required><input type="tel" maxLength="10" value={f.mobile} onChange={e=>set('mobile',e.target.value.replace(/\D/g,''))} placeholder="10 अंकों का नंबर"/></Field>
+          <Field label="ईमेल (यदि हो)"><input type="email" value={f.email} onChange={e=>set('email',e.target.value)}/></Field>
+        </div>
+        <div style={{marginTop:14}}>
+          <label style={{fontSize:13.5,fontWeight:600,marginBottom:8,display:'block'}}>लिंग <span className="req">*</span></label>
+          <div className="radio-row">
+            {["पुरुष","महिला","अन्य"].map(g=>(
+              <label className="radio-opt" key={g}><input type="radio" name="gender" checked={f.gender===g} onChange={()=>set('gender',g)}/>{g}</label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">2</div><h3>स्थायी पता</h3></div>
+        <div className="grid2">
+          <Field label="ग्राम / वार्ड"><input type="text" value={f.village} onChange={e=>set('village',e.target.value)}/></Field>
+          <Field label="पोस्ट"><input type="text" value={f.post} onChange={e=>set('post',e.target.value)}/></Field>
+          <Field label="तहसील"><input type="text" value={f.tehsil} onChange={e=>set('tehsil',e.target.value)}/></Field>
+          <Field label="जिला" required><input type="text" value={f.district} onChange={e=>set('district',e.target.value)}/></Field>
+          <Field label="राज्य" required><input type="text" value={f.state} onChange={e=>set('state',e.target.value)}/></Field>
+          <Field label="पिन कोड"><input type="text" maxLength="6" value={f.pin} onChange={e=>set('pin',e.target.value.replace(/\D/g,''))}/></Field>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">3</div><h3>शैक्षणिक योग्यता</h3></div>
+        <div className="check-row" style={{marginBottom:14}}>
+          {["10वीं","12वीं","स्नातक","स्नातकोत्तर","अन्य"].map(q=>(
+            <label className="radio-opt" key={q}><input type="radio" name="qual" checked={f.qualification===q} onChange={()=>set('qualification',q)}/>{q}</label>
+          ))}
+        </div>
+        {f.qualification==="अन्य" &&
+          <Field label="कृपया स्पष्ट करें"><input type="text" value={f.qualificationOther} onChange={e=>set('qualificationOther',e.target.value)}/></Field>}
+        <div className="grid2" style={{marginTop:14}}>
+          <Field label="बोर्ड / विश्वविद्यालय"><input type="text" value={f.board} onChange={e=>set('board',e.target.value)}/></Field>
+          <Field label="उत्तीर्ण वर्ष"><input type="text" maxLength="4" value={f.passYear} onChange={e=>set('passYear',e.target.value.replace(/\D/g,''))}/></Field>
+          <Field label="प्रतिशत / ग्रेड"><input type="text" value={f.percent} onChange={e=>set('percent',e.target.value)}/></Field>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">4</div><h3>कार्य अनुभव (यदि हो)</h3></div>
+        <Field label="पूर्व कार्य का विवरण"><textarea value={f.experienceDetail} onChange={e=>set('experienceDetail',e.target.value)}/></Field>
+        <div style={{marginTop:14,maxWidth:220}}>
+          <Field label="कुल अनुभव (वर्ष में)"><input type="number" min="0" value={f.experienceYears} onChange={e=>set('experienceYears',e.target.value)}/></Field>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">5</div><h3>क्या आपके पास दोपहिया वाहन है?</h3></div>
+        <div className="radio-row">
+          {["हाँ","नहीं"].map(o=>(
+            <label className="radio-opt" key={o}><input type="radio" name="veh" checked={f.hasVehicle===o} onChange={()=>set('hasVehicle',o)}/>{o}</label>
+          ))}
+        </div>
+        {f.hasVehicle==="हाँ" &&
+          <div style={{marginTop:12,maxWidth:280}}>
+            <Field label="वाहन संख्या"><input type="text" value={f.vehicleNo} onChange={e=>set('vehicleNo',e.target.value)}/></Field>
+          </div>}
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">6</div><h3>क्या आपके पास वैध ड्राइविंग लाइसेंस है?</h3></div>
+        <div className="radio-row">
+          {["हाँ","नहीं"].map(o=>(
+            <label className="radio-opt" key={o}><input type="radio" name="lic" checked={f.hasLicense===o} onChange={()=>set('hasLicense',o)}/>{o}</label>
+          ))}
+        </div>
+        {f.hasLicense==="हाँ" &&
+          <div style={{marginTop:12,maxWidth:280}}>
+            <Field label="लाइसेंस संख्या"><input type="text" value={f.licenseNo} onChange={e=>set('licenseNo',e.target.value)}/></Field>
+          </div>}
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">7</div><h3>आप किस क्षेत्र में कार्य करना चाहते हैं?</h3></div>
+        <div style={{maxWidth:340}}>
+          <select value={f.area} onChange={e=>set('area',e.target.value)}>
+            <option value="">-- चुनें --</option>
+            {AREA_OPTIONS.map(a=><option key={a} value={a}>{a}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-title"><div className="section-num">8</div><h3>आवश्यक दस्तावेज (संलग्न करें)</h3></div>
+        <div className="check-row">
+          {["आधार कार्ड","पासपोर्ट आकार फोटो","शैक्षणिक प्रमाण पत्र","बैंक पासबुक की प्रति","अन्य"].map(d=>(
+            <label className="check-opt" key={d}><input type="checkbox" checked={f.docs.includes(d)} onChange={()=>toggleDoc(d)}/>{d}</label>
+          ))}
+        </div>
+        {f.docs.includes("अन्य") &&
+          <div style={{marginTop:12,maxWidth:340}}>
+            <Field label="कृपया स्पष्ट करें"><input type="text" value={f.docsOther} onChange={e=>set('docsOther',e.target.value)}/></Field>
+          </div>}
+      </div>
+
+      <div className="section">
+        <div className="declaration">
+          <label>
+            <input type="checkbox" checked={f.declared} onChange={e=>set('declared',e.target.checked)}/>
+            मैं घोषणा करता/करती हूँ कि इस आवेदन पत्र में दी गई सभी जानकारी मेरे ज्ञान के अनुसार सही एवं सत्य है। यदि कोई जानकारी असत्य पाई जाती है, तो मेरा आवेदन निरस्त किया जा सकता है।
+          </label>
+        </div>
+        <div className="grid2" style={{marginTop:14}}>
+          <Field label="स्थान"><input type="text" value={f.place} onChange={e=>set('place',e.target.value)}/></Field>
+          <Field label="हस्ताक्षर (अपना नाम टाइप करें)" required><input type="text" value={f.signature} onChange={e=>set('signature',e.target.value)}/></Field>
+        </div>
+      </div>
+
+      <div className="submit-bar" style={{flexDirection:'column',alignItems:'flex-end'}}>
+        {error && <div className="err">{error}</div>}
+        <button className="btn btn-primary" disabled={submitting} onClick={submit}>
+          {submitting? "जमा हो रहा है...":"आवेदन जमा करें"}
+        </button>
+      </div>
+      <div className="note">यह जानकारी Supabase डेटाबेस में सुरक्षित रूप से संग्रहित होगी।</div>
+    </div>
+  );
+}
+
+function StatusBadge({status}){
+  const map={pending:["लंबित","pending"],approved:["स्वीकृत","approved"],declined:["अस्वीकृत","declined"]};
+  const [label,cls]=map[status]||map.pending;
+  return <span className={`badge ${cls}`}>{label}</span>;
+}
+
+function StatusCheck(){
+  const [mobile,setMobile]=useState("");
+  const [appNo,setAppNo]=useState("");
+  const [rec,setRec]=useState(null);
+  const [err,setErr]=useState("");
+  const [checked,setChecked]=useState(false);
+  const chanRef=useRef(null);
+
+  const check=useCallback(async(silent)=>{
+    if(!silent) setErr("");
+    if(!appNo.trim()){ if(!silent) setErr("कृपया आवेदन पत्र संख्या भरें।"); return; }
+    try{
+      const data=await dbFetchByAppNo(appNo.trim());
+      if(!data){ if(!silent){ setRec(null); setErr("कोई आवेदन नहीं मिला। कृपया आवेदन संख्या जांचें।"); } setChecked(true); return; }
+      if(mobile.trim() && data.mobile!==mobile.trim()){
+        if(!silent){ setRec(null); setErr("मोबाइल नंबर आवेदन से मेल नहीं खाता।"); }
+        setChecked(true); return;
+      }
+      setRec(data); setErr(""); setChecked(true);
+    }catch(e){
+      if(!silent) setErr("डेटा प्राप्त करने में त्रुटि हुई।");
     }
+  },[appNo,mobile]);
+
+  useEffect(()=>{
+    if(!rec) return;
+    const channel = sb.channel(`status-${rec.id}`)
+      .on('postgres_changes',{event:'UPDATE',schema:'public',table:TABLE,filter:`app_no=eq.${rec.id}`},
+        payload=>{ setRec(fromRow(payload.new)); })
+      .subscribe();
+    chanRef.current=channel;
+    const poll=setInterval(()=>check(true),6000);
+    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
+  },[rec && rec.id]);
+
+  return (
+    <div className="card">
+      <div className="form-meta"><h2>आवेदन की स्थिति जांचें</h2></div>
+      <div className="status-search">
+        <input type="text" placeholder="आवेदन पत्र संख्या (जैसे NMA/2026/0001)" value={appNo} onChange={e=>setAppNo(e.target.value)}/>
+        <input type="tel" placeholder="मोबाइल नंबर (वैकल्पिक पुष्टि हेतु)" maxLength="10" value={mobile} onChange={e=>setMobile(e.target.value.replace(/\D/g,''))}/>
+        <button className="btn btn-primary" onClick={()=>check(false)}>जांचें</button>
+      </div>
+      {err && <div className="err" style={{padding:"0 22px 16px"}}>{err}</div>}
+      {rec &&
+        <div className="status-card">
+          {rec.photo && <img src={rec.photo} className="status-photo"/>}
+          <div style={{marginBottom:10,fontSize:13,color:"var(--ink-soft)"}}>आवेदन पत्र संख्या</div>
+          <div className="app-no" style={{marginTop:0}}>{rec.id}</div>
+          <div style={{margin:"16px 0"}}><StatusBadge status={rec.status}/></div>
+          <div style={{fontFamily:"'Noto Serif Devanagari',serif",fontSize:18,color:"var(--forest)",marginBottom:4}}>{rec.name}</div>
+          <div style={{fontSize:13,color:"var(--ink-soft)"}}>पद: {rec.position || '—'} · जमा दिनांक: {rec.submittedDate}</div>
+          {rec.status==="approved" && <p style={{color:"#1F6B37",fontSize:13.5,marginTop:14}}>बधाई हो! आपका आवेदन स्वीकृत कर लिया गया है। आगे की जानकारी हेतु आपसे संपर्क किया जाएगा।</p>}
+          {rec.status==="declined" && <p style={{color:"var(--maroon)",fontSize:13.5,marginTop:14}}>खेद है, आपका आवेदन इस बार स्वीकृत नहीं हो सका।</p>}
+          {rec.status==="pending" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>आपका आवेदन समीक्षा हेतु लंबित है। स्वीकृति मिलते ही यह पृष्ठ स्वतः अद्यतन हो जाएगा।</p>}
+        </div>
+      }
+      {checked && !rec && !err && <div className="empty">कोई परिणाम नहीं मिला।</div>}
+    </div>
+  );
+}
+
+function AdminLogin({onLogin}){
+  const [pw,setPw]=useState("");
+  const [err,setErr]=useState("");
+  const tryLogin=()=>{
+    if(pw==="admin123") onLogin();
+    else setErr("गलत पासवर्ड। कृपया पुनः प्रयास करें।");
+  };
+  return (
+    <div className="card admin-login">
+      <h2 style={{fontFamily:"'Noto Serif Devanagari',serif",color:"var(--forest)"}}>एडमिन लॉगिन</h2>
+      <p style={{fontSize:13,color:"var(--ink-soft)"}}>डेमो पासवर्ड: <strong>admin123</strong></p>
+      <input type="password" value={pw} onChange={e=>setPw(e.target.value)} placeholder="पासवर्ड दर्ज करें" onKeyDown={e=>e.key==='Enter'&&tryLogin()}/>
+      {err && <div className="err">{err}</div>}
+      <button className="btn btn-primary" style={{width:"100%"}} onClick={tryLogin}>प्रवेश करें</button>
+    </div>
+  );
+}
+
+function toCSV(records){
+  const cols=["id","status","name","parentName","dob","gender","mobile","email","village","post","tehsil","district","state","pin","qualification","board","passYear","percent","experienceDetail","experienceYears","hasVehicle","vehicleNo","hasLicense","licenseNo","area","docs","place","signature","submittedDate"];
+  const esc=v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`;
+  const rows=[cols.join(",")];
+  records.forEach(r=>{
+    rows.push(cols.map(c=>esc(c==='docs' ? (r.docs||[]).join('; ') : r[c])).join(","));
+  });
+  return rows.join("\n");
+}
+function downloadCSV(records){
+  const blob=new Blob([toCSV(records)],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`nasha-mukti-registrations-${Date.now()}.csv`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function AdminPanel(){
+  const [loggedIn,setLoggedIn]=useState(false);
+  const [records,setRecords]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const [loadErr,setLoadErr]=useState("");
+  const [search,setSearch]=useState("");
+  const [filter,setFilter]=useState("all");
+  const [selected,setSelected]=useState(null);
+  const [toast,setToast]=useState("");
+
+  const load=useCallback(async()=>{
+    try{
+      const recs=await dbFetchAll();
+      setRecords(recs);
+      setLoadErr("");
+    }catch(e){
+      setLoadErr("डेटा लोड नहीं हो सका। कृपया जांचें कि Supabase टेबल 'registrations' बन चुकी है और RLS नीतियां सही हैं (नीचे नोट देखें)।");
+    }
+    setLoading(false);
+  },[]);
+
+  useEffect(()=>{
+    if(!loggedIn) return;
+    load();
+    const channel = sb.channel('admin-registrations')
+      .on('postgres_changes',{event:'*',schema:'public',table:TABLE}, ()=>load())
+      .subscribe();
+    const poll=setInterval(load,6000);
+    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
+  },[loggedIn,load]);
+
+  const showToast=(msg)=>{ setToast(msg); setTimeout(()=>setToast(""),2500); };
+
+  const updateStatus=async(rec,status)=>{
+    try{
+      await dbUpdateStatus(rec.id,status);
+      const updated={...rec,status};
+      setRecords(prev=>prev.map(r=>r.id===rec.id?updated:r));
+      setSelected(updated);
+      showToast(status==="approved"?`${rec.name} का आवेदन स्वीकृत किया गया`: status==="declined"?`${rec.name} का आवेदन अस्वीकृत किया गया`:"स्थिति अद्यतन की गई");
+    }catch(e){
+      showToast("स्थिति अपडेट नहीं हो सकी।");
+    }
+  };
+
+  const filtered=records.filter(r=>{
+    if(filter!=="all" && r.status!==filter) return false;
+    if(!search.trim()) return true;
+    const q=search.trim().toLowerCase();
+    return (r.name||"").toLowerCase().includes(q) || (r.mobile||"").includes(q) || (r.id||"").toLowerCase().includes(q) || (r.district||"").toLowerCase().includes(q);
   });
 
-  document.getElementById('confirmBtn').addEventListener('click', function() {
-    const p = marker.getLatLng();
-    setStatus(`✅ Delivery location confirmed: ${p.lat.toFixed(5)}, ${p.lng.toFixed(5)}`, true);
-  });
+  const counts={
+    all:records.length,
+    pending:records.filter(r=>r.status==="pending").length,
+    approved:records.filter(r=>r.status==="approved").length,
+    declined:records.filter(r=>r.status==="declined").length,
+  };
 
-  // page load pe auto-fetch
-  autoLocate();
+  if(!loggedIn) return <AdminLogin onLogin={()=>setLoggedIn(true)}/>;
+
+  return (
+    <div>
+      {loadErr &&
+        <div className="setup-warning">⚠️ {loadErr}</div>}
+
+      <div className="stats">
+        <div className="stat"><div className="num">{counts.all}</div><div className="lbl">कुल आवेदन</div></div>
+        <div className="stat"><div className="num">{counts.pending}</div><div className="lbl">लंबित</div></div>
+        <div className="stat"><div className="num">{counts.approved}</div><div className="lbl">स्वीकृत</div></div>
+        <div className="stat"><div className="num">{counts.declined}</div><div className="lbl">अस्वीकृत</div></div>
+      </div>
+
+      <div className="admin-toolbar">
+        <input type="text" placeholder="नाम, मोबाइल, आवेदन संख्या या जिला से खोजें..." value={search} onChange={e=>setSearch(e.target.value)}/>
+        {[["all","सभी"],["pending","लंबित"],["approved","स्वीकृत"],["declined","अस्वीकृत"]].map(([k,l])=>(
+          <button key={k} className={`filter-chip ${filter===k?'active':''}`} onClick={()=>setFilter(k)}>{l} ({counts[k]})</button>
+        ))}
+        <button className="btn btn-outline btn-sm" onClick={()=>downloadCSV(filtered)}>⬇ CSV भेजें / डाउनलोड करें</button>
+      </div>
+
+      {loading && <div className="loading">लोड हो रहा है...</div>}
+      {!loading && filtered.length===0 && <div className="empty">कोई आवेदन नहीं मिला।</div>}
+      {!loading && filtered.map(r=>(
+        <div className="app-row" key={r.id} onClick={()=>setSelected(r)}>
+          {r.photo ? <img src={r.photo} className="app-row-thumb"/> : <div className="app-row-thumb"/>}
+          <div className="app-row-top">
+            <div>
+              <div className="app-row-name">{r.name}</div>
+              <div className="app-row-sub">{r.id} · {r.mobile} · {r.district}{r.state?`, ${r.state}`:''}</div>
+            </div>
+            <StatusBadge status={r.status}/>
+          </div>
+        </div>
+      ))}
+
+      {selected &&
+        <div className="modal-bg" onClick={()=>setSelected(null)}>
+          <div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="modal-head">
+              <h3>{selected.name}</h3>
+              <button className="modal-close" onClick={()=>setSelected(null)}>×</button>
+            </div>
+            <div className="modal-body">
+              {selected.photo && <img src={selected.photo} className="modal-photo"/>}
+              <div style={{marginBottom:12}}><StatusBadge status={selected.status}/></div>
+              {[
+                ["आवेदन संख्या",selected.id],
+                ["पद",selected.position],
+                ["पिता/पति का नाम",selected.parentName],
+                ["जन्म तिथि",selected.dob],
+                ["आयु",calcAge(selected.dob)],
+                ["लिंग",selected.gender],
+                ["मोबाइल",selected.mobile],
+                ["ईमेल",selected.email],
+                ["पता",[selected.village,selected.post,selected.tehsil,selected.district,selected.state,selected.pin].filter(Boolean).join(", ")],
+                ["योग्यता",selected.qualification==="अन्य"?selected.qualificationOther:selected.qualification],
+                ["बोर्ड/विश्वविद्यालय",selected.board],
+                ["उत्तीर्ण वर्ष",selected.passYear],
+                ["प्रतिशत/ग्रेड",selected.percent],
+                ["कार्य अनुभव",selected.experienceDetail],
+                ["कुल अनुभव (वर्ष)",selected.experienceYears],
+                ["दोपहिया वाहन",selected.hasVehicle + (selected.vehicleNo?` (${selected.vehicleNo})`:'')],
+                ["ड्राइविंग लाइसेंस",selected.hasLicense + (selected.licenseNo?` (${selected.licenseNo})`:'')],
+                ["इच्छित क्षेत्र",selected.area],
+                ["संलग्न दस्तावेज",[...(selected.docs||[]).filter(d=>d!=="अन्य"), (selected.docs||[]).includes("अन्य")?selected.docsOther:null].filter(Boolean).join(", ")],
+                ["हस्ताक्षर",selected.signature],
+                ["जमा दिनांक",selected.submittedDate],
+              ].map(([k,v])=>(
+                <div className="detail-row" key={k}><div className="k">{k}</div><div>{v || "—"}</div></div>
+              ))}
+            </div>
+            <div className="modal-actions">
+              <button className="btn btn-sm btn-approve" onClick={()=>updateStatus(selected,"approved")} disabled={selected.status==="approved"}>स्वीकृत करें</button>
+              <button className="btn btn-sm btn-decline" onClick={()=>updateStatus(selected,"declined")} disabled={selected.status==="declined"}>अस्वीकार करें</button>
+              {selected.status!=="pending" &&
+                <button className="btn btn-sm btn-outline" onClick={()=>updateStatus(selected,"pending")}>लंबित करें</button>}
+            </div>
+          </div>
+        </div>
+      }
+      {toast && <div className="toast">{toast}</div>}
+    </div>
+  );
+}
+
+function App(){
+  const [tab,setTab]=useState("form");
+  return (
+    <div className="app">
+      <div className="header">
+        <div className="header-inner">
+          <div className="logo-seal">🌿</div>
+          <div>
+            <h1>नशा मुक्ति अभियान</h1>
+            <p>स्वस्थ समाज • सशक्त परिवार • उज्जवल भारत</p>
+          </div>
+        </div>
+      </div>
+      <div className="tabbar">
+        <button className={`tab-btn ${tab==='form'?'active':''}`} onClick={()=>setTab('form')}>पंजीकरण फॉर्म</button>
+        <button className={`tab-btn ${tab==='status'?'active':''}`} onClick={()=>setTab('status')}>स्थिति जांचें</button>
+        <button className={`tab-btn ${tab==='admin'?'active':''}`} onClick={()=>setTab('admin')}>एडमिन पैनल</button>
+      </div>
+      <div className="content">
+        {tab==='form' && <RegistrationForm/>}
+        {tab==='status' && <StatusCheck/>}
+        {tab==='admin' && <AdminPanel/>}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
-
 </body>
 </html>
