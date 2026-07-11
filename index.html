@@ -313,10 +313,8 @@ function RegistrationForm(){
     if(f.pin && !/^\d{6}$/.test(f.pin)) return "पिन कोड 6 अंकों का होना चाहिए।";
     if(!f.qualification) return "कृपया शैक्षणिक योग्यता चुनें।";
     if(!f.hasVehicle) return "कृपया दोपहिया वाहन संबंधी प्रश्न का उत्तर दें।";
-    if(!f.hasLicense) return "कृपया ड्राइविंग लाइसेंस संबंधी प्रश्न का उत्तर दें।";
     if(!f.area) return "कृपया कार्यक्षेत्र चुनें।";
     if(!f.declared) return "कृपया घोषणा स्वीकार करें।";
-    if(!f.signature.trim()) return "कृपया हस्ताक्षर हेतु अपना नाम टाइप करें।";
     return "";
   };
 
@@ -420,15 +418,7 @@ function RegistrationForm(){
       </div>
 
       <div className="section">
-        <div className="section-title"><div className="section-num">4</div><h3>कार्य अनुभव (यदि हो)</h3></div>
-        <Field label="पूर्व कार्य का विवरण"><textarea value={f.experienceDetail} onChange={e=>set('experienceDetail',e.target.value)}/></Field>
-        <div style={{marginTop:14,maxWidth:220}}>
-          <Field label="कुल अनुभव (वर्ष में)"><input type="number" min="0" value={f.experienceYears} onChange={e=>set('experienceYears',e.target.value)}/></Field>
-        </div>
-      </div>
-
-      <div className="section">
-        <div className="section-title"><div className="section-num">5</div><h3>क्या आपके पास दोपहिया वाहन है?</h3></div>
+        <div className="section-title"><div className="section-num">4</div><h3>क्या आपके पास दोपहिया वाहन है?</h3></div>
         <div className="radio-row">
           {["हाँ","नहीं"].map(o=>(
             <label className="radio-opt" key={o}><input type="radio" name="veh" checked={f.hasVehicle===o} onChange={()=>set('hasVehicle',o)}/>{o}</label>
@@ -441,20 +431,7 @@ function RegistrationForm(){
       </div>
 
       <div className="section">
-        <div className="section-title"><div className="section-num">6</div><h3>क्या आपके पास वैध ड्राइविंग लाइसेंस है?</h3></div>
-        <div className="radio-row">
-          {["हाँ","नहीं"].map(o=>(
-            <label className="radio-opt" key={o}><input type="radio" name="lic" checked={f.hasLicense===o} onChange={()=>set('hasLicense',o)}/>{o}</label>
-          ))}
-        </div>
-        {f.hasLicense==="हाँ" &&
-          <div style={{marginTop:12,maxWidth:280}}>
-            <Field label="लाइसेंस संख्या"><input type="text" value={f.licenseNo} onChange={e=>set('licenseNo',e.target.value)}/></Field>
-          </div>}
-      </div>
-
-      <div className="section">
-        <div className="section-title"><div className="section-num">7</div><h3>आप किस क्षेत्र में कार्य करना चाहते हैं?</h3></div>
+        <div className="section-title"><div className="section-num">5</div><h3>आप किस क्षेत्र में कार्य करना चाहते हैं?</h3></div>
         <div style={{maxWidth:340}}>
           <select value={f.area} onChange={e=>set('area',e.target.value)}>
             <option value="">-- चुनें --</option>
@@ -464,29 +441,11 @@ function RegistrationForm(){
       </div>
 
       <div className="section">
-        <div className="section-title"><div className="section-num">8</div><h3>संलग्न दस्तावेज (वैकल्पिक)</h3></div>
-        <div className="hint" style={{marginBottom:10}}>कृपया कोई सरकारी पहचान पत्र (आधार आदि) या बैंक विवरण यहाँ अपलोड न करें — इनकी आवश्यकता नहीं है।</div>
-        <div className="check-row">
-          {DOC_OPTIONS.map(d=>(
-            <label className="check-opt" key={d}><input type="checkbox" checked={f.docs.includes(d)} onChange={()=>toggleDoc(d)}/>{d}</label>
-          ))}
-        </div>
-        {f.docs.includes("अन्य") &&
-          <div style={{marginTop:12,maxWidth:340}}>
-            <Field label="कृपया स्पष्ट करें"><input type="text" value={f.docsOther} onChange={e=>set('docsOther',e.target.value)}/></Field>
-          </div>}
-      </div>
-
-      <div className="section">
         <div className="declaration">
           <label>
             <input type="checkbox" checked={f.declared} onChange={e=>set('declared',e.target.checked)}/>
             मैं घोषणा करता/करती हूँ कि इस आवेदन पत्र में दी गई सभी जानकारी मेरे ज्ञान के अनुसार सही एवं सत्य है। यदि कोई जानकारी असत्य पाई जाती है, तो मेरा आवेदन निरस्त किया जा सकता है।
           </label>
-        </div>
-        <div className="grid2" style={{marginTop:14}}>
-          <Field label="स्थान"><input type="text" value={f.place} onChange={e=>set('place',e.target.value)}/></Field>
-          <Field label="हस्ताक्षर (अपना नाम टाइप करें)" required><input type="text" value={f.signature} onChange={e=>set('signature',e.target.value)}/></Field>
         </div>
       </div>
 
