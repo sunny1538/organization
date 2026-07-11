@@ -2,6 +2,7 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>नशा मुक्ति अभियान — आवेदन प्रणाली</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@500;700;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap');
@@ -141,8 +142,9 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
 .admin-login{max-width:380px;margin:40px auto;padding:30px;text-align:center;}
 .admin-login input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
   font-family:inherit;font-size:14.5px;margin:14px 0;background:var(--paper);text-align:center;letter-spacing:2px;}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
-@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr);}}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
+@media(max-width:700px){.stats{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:420px){.stats{grid-template-columns:repeat(2,1fr);}}
 .stat{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;}
 .stat .num{font-size:24px;font-weight:800;color:var(--forest);font-family:'Noto Serif Devanagari',serif;}
 .stat .lbl{font-size:12px;color:var(--ink-soft);margin-top:2px;}
@@ -181,6 +183,104 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
 .note{font-size:11.5px;color:var(--ink-soft);text-align:center;padding:10px 22px 0;}
 .setup-warning{background:#FCEFD0;border:1px solid var(--gold-2);color:#7A5B12;padding:14px 18px;
   border-radius:8px;font-size:13px;margin-bottom:18px;line-height:1.6;}
+
+/* ---------- Stepper ---------- */
+.stepper{display:flex;align-items:flex-start;justify-content:center;gap:0;padding:18px 16px 20px;
+  background:var(--white);border-bottom:1px solid var(--line);}
+.step{display:flex;flex-direction:column;align-items:center;flex:1;max-width:150px;position:relative;}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;border:2px solid var(--line);background:var(--white);color:var(--ink-soft);
+  transition:all .2s ease;flex-shrink:0;z-index:1;}
+.step.done .step-circle{background:var(--forest);border-color:var(--forest);color:#fff;}
+.step.active .step-circle{background:var(--gold);border-color:var(--gold);color:#3B2C09;box-shadow:0 0 0 4px rgba(199,154,61,0.18);}
+.step-label{font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:7px;text-align:center;letter-spacing:.2px;}
+.step.done .step-label,.step.active .step-label{color:var(--forest);}
+.step-line{position:absolute;top:16px;left:calc(-50% + 16px);right:calc(50% + 16px);height:2px;background:var(--line);z-index:0;}
+.step.done .step-line{background:var(--forest);}
+.step:first-child .step-line{display:none;}
+@media(max-width:520px){.step-label{font-size:10px;}.step-circle{width:26px;height:26px;font-size:12px;}.step-line{top:13px;}}
+
+/* ---------- Payment ---------- */
+.pay-wrap{padding:34px 22px;text-align:center;}
+.pay-amount{font-family:'Noto Serif Devanagari',serif;font-size:38px;font-weight:900;color:var(--forest);margin:6px 0 2px;}
+.pay-box{max-width:360px;margin:20px auto 0;background:var(--paper-2);border:1px dashed var(--line);
+  border-radius:10px;padding:20px;text-align:left;}
+.pay-box .row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line);}
+.pay-box .row:last-child{border-bottom:none;}
+.pay-btn-upi{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#3B2C09;
+  padding:13px 26px;border-radius:8px;font-weight:800;font-size:15px;text-decoration:none;margin-top:18px;}
+.pay-field{max-width:360px;margin:20px auto 0;text-align:left;}
+.pay-field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.pay-field input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
+  font-family:inherit;font-size:14.5px;background:var(--white);text-align:center;letter-spacing:1px;}
+.pay-note{font-size:12px;color:var(--ink-soft);max-width:380px;margin:12px auto 0;line-height:1.6;}
+.pay-status-pill{display:inline-flex;align-items:center;gap:6px;background:#FCEFD0;color:#8A6416;
+  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-top:10px;}
+
+/* ---------- Certificate / Volunteer ID ---------- */
+.cert-wrap{padding:30px 20px;}
+.cert-card{max-width:480px;margin:0 auto;background:var(--white);border:3px solid var(--forest);
+  border-radius:12px;padding:26px 24px;position:relative;overflow:hidden;}
+.cert-card::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-2);border-radius:8px;pointer-events:none;}
+.cert-head{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:14px;margin-bottom:16px;}
+.cert-head .seal{font-size:30px;}
+.cert-head h3{font-family:'Noto Serif Devanagari',serif;color:var(--forest);margin:6px 0 2px;font-size:19px;}
+.cert-head p{margin:0;font-size:11.5px;color:var(--ink-soft);letter-spacing:.4px;}
+.cert-body{display:flex;gap:16px;align-items:center;}
+.cert-photo{width:84px;height:84px;border-radius:8px;object-fit:cover;border:2px solid var(--line);flex-shrink:0;}
+.cert-photo-ph{width:84px;height:84px;border-radius:8px;background:var(--paper-2);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-soft);text-align:center;}
+.cert-name{font-family:'Noto Serif Devanagari',serif;font-size:18px;color:var(--forest);margin:0 0 4px;}
+.cert-id{font-family:monospace;font-weight:700;color:var(--maroon);font-size:14px;}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:16px;font-size:12.5px;}
+.cert-grid .k{color:var(--ink-soft);}
+.cert-grid .v{font-weight:700;color:var(--ink);}
+.cert-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;padding-top:14px;border-top:1px dashed var(--line);}
+.cert-sign{font-family:'Noto Serif Devanagari',serif;font-size:15px;color:var(--forest);border-top:1px solid var(--ink-soft);padding-top:4px;}
+.cert-stampmini{width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);display:flex;
+  align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--forest);text-align:center;
+  transform:rotate(-10deg);font-family:'Noto Serif Devanagari',serif;line-height:1.2;}
+.cert-actions{max-width:480px;margin:20px auto 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+@media print{
+  body *{visibility:hidden;}
+  .cert-card,.cert-card *{visibility:visible;}
+  .cert-card{position:absolute;top:0;left:0;margin:0;box-shadow:none;}
+}
+
+/* ---------- Mobile polish ---------- */
+@media(max-width:600px){
+  .header{padding:16px 14px 20px;}
+  .header h1{font-size:20px;}
+  .header p{font-size:12px;}
+  .logo-seal{width:44px;height:44px;font-size:20px;}
+  .conn-dot{position:static;display:inline-flex;margin-top:8px;}
+  .header-inner{flex-wrap:wrap;}
+  .tabbar{padding:10px 12px 0;gap:4px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+  .tab-btn{padding:9px 12px;font-size:13px;white-space:nowrap;flex-shrink:0;}
+  .content{padding:14px 10px 40px;}
+  .form-meta{padding:14px 16px;}
+  .form-meta h2{font-size:17px;}
+  .fee-note{margin:12px 16px 0;font-size:12.5px;padding:8px 12px;}
+  .section{padding:14px 16px;}
+  .section-title h3{font-size:15px;}
+  .field input,.field select,.field textarea{font-size:16px;padding:11px 12px;}
+  .submit-bar{padding:16px;}
+  .submit-bar .btn{width:100%;}
+  .status-search{flex-direction:column;padding:16px;}
+  .status-search .btn{width:100%;}
+  .admin-toolbar{flex-direction:column;align-items:stretch;}
+  .admin-toolbar .filter-chip{flex:1;text-align:center;}
+  .modal{max-height:92vh;border-radius:10px 10px 0 0;}
+  .modal-bg{align-items:flex-end;padding:0;}
+  .modal{max-width:100%;}
+  .detail-row{grid-template-columns:120px 1fr;font-size:12.5px;}
+  .pay-btn-upi{width:100%;justify-content:center;}
+  .pay-box,.pay-field,.pay-note{max-width:100%;}
+  .cert-card{padding:18px 16px;}
+  .cert-body{flex-wrap:wrap;}
+  .cert-actions .btn{flex:1;min-width:130px;}
+  .admin-login{margin:20px auto;padding:22px 18px;}
+}
 </style>
 </head>
 <body>
@@ -198,6 +298,16 @@ const SUPABASE_URL = "https://teoudlvdneuxjqftnfnr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_hJMf8h4IyVydRoiDJ1VHCA_dwxyDfjQ";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TABLE = "registrations";
+
+/* ---------- Payment / Org config — apna sahi UPI ID yahin daal do ---------- */
+const UPI_ID = "yourupi@bank";        // TODO: apna asli UPI ID daalein
+const UPI_PAYEE_NAME = "Nasha Mukti Abhiyan";
+const ORG_NAME = "नशा मुक्ति अभियान";
+const FEE_AMOUNT = 199;
+function buildUpiLink(appNo){
+  const note = encodeURIComponent(`Volunteer ID Fee ${appNo}`);
+  return `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${FEE_AMOUNT}&cu=INR&tn=${note}`;
+}
 
 function pad(n,len){return String(n).padStart(len,'0');}
 function todayStr(){
@@ -229,7 +339,8 @@ const emptyForm={
   hasLicense:"", licenseNo:"",
   area:"", docs:[], docsOther:"",
   place:"", signature:"", declared:false,
-  photo:""
+  photo:"",
+  paymentStatus:"unpaid", utr:"", paidAt:""
 };
 
 function genAppNo(existingCount){
@@ -252,7 +363,8 @@ function toRow(f){
     area: f.area, docs: f.docs, docs_other: f.docsOther,
     place: f.place, signature: f.signature,
     photo_base64: f.photo || null,
-    status: f.status, submitted_at: f.submittedAt
+    status: f.status, submitted_at: f.submittedAt,
+    payment_status: f.paymentStatus || "unpaid", utr: f.utr || null, paid_at: f.paidAt || null
   };
 }
 function fromRow(r){
@@ -270,7 +382,8 @@ function fromRow(r){
     place: r.place, signature: r.signature,
     photo: r.photo_base64 || "",
     status: r.status, submittedAt: r.submitted_at,
-    submittedDate: r.submitted_at ? new Date(r.submitted_at).toLocaleDateString('en-GB') : ''
+    submittedDate: r.submitted_at ? new Date(r.submitted_at).toLocaleDateString('en-GB') : '',
+    paymentStatus: r.payment_status || "unpaid", utr: r.utr || "", paidAt: r.paid_at || ""
   };
 }
 
@@ -296,6 +409,10 @@ async function dbFetchAll(){
 }
 async function dbUpdateStatus(appNo,status){
   const {error} = await sb.from(TABLE).update({status}).eq('app_no',appNo);
+  if(error) throw error;
+}
+async function dbUpdatePayment(appNo,fields){
+  const {error} = await sb.from(TABLE).update(fields).eq('app_no',appNo);
   if(error) throw error;
 }
 
@@ -368,11 +485,63 @@ function PhotoField({photo,onChange}){
   );
 }
 
+function Stepper({stage}){
+  const steps=[["form","फॉर्म"],["payment","भुगतान"],["certificate","प्रमाणपत्र"]];
+  const idx=steps.findIndex(s=>s[0]===stage);
+  return (
+    <div className="stepper">
+      {steps.map(([key,label],i)=>(
+        <div className={`step ${i<idx?'done':''} ${i===idx?'active':''}`} key={key}>
+          {i>0 && <div className="step-line"/>}
+          <div className="step-circle">{i<idx?'✓':i+1}</div>
+          <div className="step-label">{label}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CertificateView({rec}){
+  return (
+    <div className="cert-wrap">
+      <div className="cert-card">
+        <div className="cert-head">
+          <div className="seal">🌿</div>
+          <h3>{ORG_NAME}</h3>
+          <p>वॉलंटियर परिचय पत्र / प्रमाणपत्र (VOLUNTEER ID PROOF)</p>
+        </div>
+        <div className="cert-body">
+          {rec.photo ? <img src={rec.photo} className="cert-photo"/> : <div className="cert-photo-ph">फोटो नहीं</div>}
+          <div>
+            <div className="cert-name">{rec.name}</div>
+            <div className="cert-id">{rec.id}</div>
+          </div>
+        </div>
+        <div className="cert-grid">
+          <div><span className="k">पद: </span><span className="v">{rec.position||'—'}</span></div>
+          <div><span className="k">क्षेत्र: </span><span className="v">{rec.area||'—'}</span></div>
+          <div><span className="k">जिला: </span><span className="v">{rec.district||'—'}</span></div>
+          <div><span className="k">राज्य: </span><span className="v">{rec.state||'—'}</span></div>
+          <div><span className="k">मोबाइल: </span><span className="v">{rec.mobile||'—'}</span></div>
+          <div><span className="k">जारी दिनांक: </span><span className="v">{todayStr()}</span></div>
+        </div>
+        <div className="cert-foot">
+          <div className="cert-sign">{rec.signature||rec.name}</div>
+          <div className="cert-stampmini">सत्यापित<br/>{ORG_NAME.split(' ')[0]}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function RegistrationForm(){
   const [f,setF]=useState(emptyForm);
   const [error,setError]=useState("");
   const [submitting,setSubmitting]=useState(false);
   const [result,setResult]=useState(null);
+  const [utrInput,setUtrInput]=useState("");
+  const [payErr,setPayErr]=useState("");
+  const [payBusy,setPayBusy]=useState(false);
 
   const set=(k,v)=>setF(prev=>({...prev,[k]:v}));
   const toggleDoc=(doc)=>{
@@ -415,16 +584,85 @@ function RegistrationForm(){
     setSubmitting(false);
   };
 
+  /* keep result in sync with DB (admin approval / payment verification) */
+  useEffect(()=>{
+    if(!result) return;
+    const refresh=async()=>{
+      const fresh=await dbFetchByAppNo(result.id);
+      if(fresh) setResult(prev=>({...prev,...fresh}));
+    };
+    const channel = sb.channel(`myapp-${result.id}`)
+      .on('postgres_changes',{event:'UPDATE',schema:'public',table:TABLE,filter:`app_no=eq.${result.id}`},
+        payload=>{ setResult(prev=>({...prev,...fromRow(payload.new)})); })
+      .subscribe();
+    const poll=setInterval(refresh,6000);
+    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
+  },[result && result.id]);
+
+  const confirmPayment=async()=>{
+    if(!utrInput.trim()){ setPayErr("कृपया UTR / लेन-देन संख्या भरें।"); return; }
+    setPayErr(""); setPayBusy(true);
+    try{
+      await dbUpdatePayment(result.id,{payment_status:"pending_verification", utr:utrInput.trim(), paid_at:new Date().toISOString()});
+      setResult(prev=>({...prev, paymentStatus:"pending_verification", utr:utrInput.trim()}));
+    }catch(e){
+      setPayErr("भुगतान जानकारी सुरक्षित नहीं हो सकी। पुनः प्रयास करें।");
+    }
+    setPayBusy(false);
+  };
+
   if(result){
+    const stage = (result.paymentStatus==="paid" && result.status==="approved") ? "certificate" : "payment";
+
+    if(stage==="payment"){
+      return (
+        <div className="card">
+          <Stepper stage="payment"/>
+          <div className="pay-wrap">
+            <div style={{fontSize:13,color:"var(--ink-soft)"}}>आवेदन सफलतापूर्वक जमा हुआ — आवेदन संख्या</div>
+            <div className="app-no">{result.id}</div>
+            <div style={{marginTop:18,fontSize:13.5,color:"var(--ink-soft)"}}>वॉलंटियर ID शुल्क</div>
+            <div className="pay-amount">₹{FEE_AMOUNT}</div>
+
+            {result.paymentStatus==="pending_verification" ? (
+              <>
+                <div className="pay-status-pill">⏳ भुगतान सत्यापन हेतु लंबित</div>
+                <p className="pay-note">आपका UTR ({result.utr}) प्राप्त हो गया है। एडमिन द्वारा सत्यापन के बाद यह पृष्ठ स्वतः अगले चरण (प्रमाणपत्र) पर बढ़ जाएगा।</p>
+              </>
+            ) : (
+              <>
+                <div className="pay-box">
+                  <div className="row"><span>UPI ID</span><strong>{UPI_ID}</strong></div>
+                  <div className="row"><span>प्राप्तकर्ता</span><strong>{UPI_PAYEE_NAME}</strong></div>
+                  <div className="row"><span>राशि</span><strong>₹{FEE_AMOUNT}</strong></div>
+                </div>
+                <a className="pay-btn-upi" href={buildUpiLink(result.id)}>📲 UPI ऐप से भुगतान करें</a>
+                <p className="pay-note">भुगतान के बाद अपने UPI ऐप से मिला UTR / लेन-देन संख्या नीचे भरें और पुष्टि करें। एडमिन सत्यापन के बाद आपका प्रमाणपत्र जारी होगा।</p>
+                <div className="pay-field">
+                  <label>UTR / लेन-देन संख्या *</label>
+                  <input type="text" value={utrInput} onChange={e=>setUtrInput(e.target.value)} placeholder="जैसे 302512345678"/>
+                </div>
+                {payErr && <div className="err">{payErr}</div>}
+                <div style={{marginTop:16}}>
+                  <button className="btn btn-primary" disabled={payBusy} onClick={confirmPayment}>
+                    {payBusy?"सुरक्षित हो रहा है...":"भुगतान की पुष्टि करें"}
+                  </button>
+                </div>
+              </>
+            )}
+            <p className="pay-note" style={{marginTop:20}}>आप "स्थिति जांचें" टैब में जाकर मोबाइल नंबर व आवेदन संख्या से अपनी प्रगति कभी भी देख सकते हैं।</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="card">
-        <div className="success-wrap">
-          <div className="stamp">आवेदन<br/>प्राप्त हुआ</div>
-          <h2 style={{fontFamily:"'Noto Serif Devanagari',serif",color:"var(--forest)",margin:"0 0 6px"}}>धन्यवाद, {result.name} जी</h2>
-          <p style={{color:"var(--ink-soft)",fontSize:14.5,margin:"0 0 6px"}}>आपका आवेदन सफलतापूर्वक जमा हो गया है। कृपया अपना आवेदन पत्र संख्या सुरक्षित रखें।</p>
-          <div className="app-no">{result.id}</div>
-          <p style={{color:"var(--ink-soft)",fontSize:13}}>आप "स्थिति जांचें" टैब में जाकर मोबाइल नंबर व आवेदन संख्या से अपने आवेदन की स्थिति देख सकते हैं।</p>
-          <button className="btn btn-outline" style={{marginTop:14}} onClick={()=>{setResult(null); setF(emptyForm);}}>नया आवेदन भरें</button>
+        <Stepper stage="certificate"/>
+        <CertificateView rec={result}/>
+        <div className="cert-actions">
+          <button className="btn btn-gold" onClick={()=>window.print()}>🖨 प्रिंट करें</button>
+          <button className="btn btn-outline" onClick={()=>{setResult(null); setF(emptyForm); setUtrInput("");}}>नया आवेदन भरें</button>
         </div>
       </div>
     );
@@ -432,6 +670,7 @@ function RegistrationForm(){
 
   return (
     <div className="card">
+      <Stepper stage="form"/>
       <div className="form-meta">
         <h2>नौकरी हेतु आवेदन पत्र</h2>
         <div className="meta-right">दिनांक: {todayStr()}</div>
@@ -583,6 +822,16 @@ function StatusBadge({status}){
   return <span className={`badge ${cls}`}>{label}</span>;
 }
 
+function PaymentBadge({paymentStatus}){
+  const map={
+    unpaid:["भुगतान बकाया","declined"],
+    pending_verification:["सत्यापन लंबित","pending"],
+    paid:["भुगतान हुआ","approved"]
+  };
+  const [label,cls]=map[paymentStatus]||map.unpaid;
+  return <span className={`badge ${cls}`}>{label}</span>;
+}
+
 function StatusCheck(){
   const [mobile,setMobile]=useState("");
   const [appNo,setAppNo]=useState("");
@@ -627,18 +876,34 @@ function StatusCheck(){
         <button className="btn btn-primary" onClick={()=>check(false)}>जांचें</button>
       </div>
       {err && <div className="err" style={{padding:"0 22px 16px"}}>{err}</div>}
-      {rec &&
-        <div className="status-card">
-          {rec.photo && <img src={rec.photo} className="status-photo"/>}
-          <div style={{marginBottom:10,fontSize:13,color:"var(--ink-soft)"}}>आवेदन पत्र संख्या</div>
-          <div className="app-no" style={{marginTop:0}}>{rec.id}</div>
-          <div style={{margin:"16px 0"}}><StatusBadge status={rec.status}/></div>
-          <div style={{fontFamily:"'Noto Serif Devanagari',serif",fontSize:18,color:"var(--forest)",marginBottom:4}}>{rec.name}</div>
-          <div style={{fontSize:13,color:"var(--ink-soft)"}}>पद: {rec.position || '—'} · जमा दिनांक: {rec.submittedDate}</div>
-          {rec.status==="approved" && <p style={{color:"#1F6B37",fontSize:13.5,marginTop:14}}>बधाई हो! आपका आवेदन स्वीकृत कर लिया गया है। आगे की जानकारी हेतु आपसे संपर्क किया जाएगा।</p>}
-          {rec.status==="declined" && <p style={{color:"var(--maroon)",fontSize:13.5,marginTop:14}}>खेद है, आपका आवेदन इस बार स्वीकृत नहीं हो सका।</p>}
-          {rec.status==="pending" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>आपका आवेदन समीक्षा हेतु लंबित है। स्वीकृति मिलते ही यह पृष्ठ स्वतः अद्यतन हो जाएगा।</p>}
-        </div>
+      {rec && rec.paymentStatus==="paid" && rec.status==="approved" &&
+        <>
+          <Stepper stage="certificate"/>
+          <CertificateView rec={rec}/>
+          <div className="cert-actions" style={{paddingBottom:10}}>
+            <button className="btn btn-gold" onClick={()=>window.print()}>🖨 प्रिंट करें</button>
+          </div>
+        </>
+      }
+      {rec && !(rec.paymentStatus==="paid" && rec.status==="approved") &&
+        <>
+          <Stepper stage={rec.paymentStatus==="unpaid"?"form":"payment"}/>
+          <div className="status-card">
+            {rec.photo && <img src={rec.photo} className="status-photo"/>}
+            <div style={{marginBottom:10,fontSize:13,color:"var(--ink-soft)"}}>आवेदन पत्र संख्या</div>
+            <div className="app-no" style={{marginTop:0}}>{rec.id}</div>
+            <div style={{margin:"16px 0",display:'flex',gap:8,justifyContent:'center',flexWrap:'wrap'}}>
+              <StatusBadge status={rec.status}/>
+              <PaymentBadge paymentStatus={rec.paymentStatus}/>
+            </div>
+            <div style={{fontFamily:"'Noto Serif Devanagari',serif",fontSize:18,color:"var(--forest)",marginBottom:4}}>{rec.name}</div>
+            <div style={{fontSize:13,color:"var(--ink-soft)"}}>पद: {rec.position || '—'} · जमा दिनांक: {rec.submittedDate}</div>
+            {rec.status==="declined" && <p style={{color:"var(--maroon)",fontSize:13.5,marginTop:14}}>खेद है, आपका आवेदन इस बार स्वीकृत नहीं हो सका।</p>}
+            {rec.status!=="declined" && rec.paymentStatus==="unpaid" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>भुगतान शेष है। भुगतान पूर्ण करने हेतु "पंजीकरण फॉर्म" टैब में जाकर नया आवेदन खोलें या पूर्व आवेदन जारी रखें।</p>}
+            {rec.status!=="declined" && rec.paymentStatus==="pending_verification" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>आपका भुगतान सत्यापन हेतु लंबित है। सत्यापन के बाद प्रमाणपत्र यहीं उपलब्ध होगा।</p>}
+            {rec.status!=="declined" && rec.paymentStatus==="paid" && rec.status!=="approved" && <p style={{color:"#8A6316",fontSize:13.5,marginTop:14}}>भुगतान सत्यापित हो गया है, आवेदन अनुमोदन हेतु लंबित है।</p>}
+          </div>
+        </>
       }
       {checked && !rec && !err && <div className="empty">कोई परिणाम नहीं मिला।</div>}
     </div>
@@ -726,6 +991,18 @@ function AdminPanel(){
     }
   };
 
+  const updatePayment=async(rec,paymentStatus)=>{
+    try{
+      await dbUpdatePayment(rec.id,{payment_status:paymentStatus});
+      const updated={...rec,paymentStatus};
+      setRecords(prev=>prev.map(r=>r.id===rec.id?updated:r));
+      setSelected(updated);
+      showToast(paymentStatus==="paid"?`${rec.name} का भुगतान सत्यापित किया गया`:"भुगतान स्थिति अद्यतन की गई");
+    }catch(e){
+      showToast("भुगतान स्थिति अपडेट नहीं हो सकी।");
+    }
+  };
+
   const filtered=records.filter(r=>{
     if(filter!=="all" && r.status!==filter) return false;
     if(!search.trim()) return true;
@@ -738,6 +1015,8 @@ function AdminPanel(){
     pending:records.filter(r=>r.status==="pending").length,
     approved:records.filter(r=>r.status==="approved").length,
     declined:records.filter(r=>r.status==="declined").length,
+    paid:records.filter(r=>r.paymentStatus==="paid").length,
+    payPending:records.filter(r=>r.paymentStatus==="pending_verification").length,
   };
 
   if(!loggedIn) return <AdminLogin onLogin={()=>setLoggedIn(true)}/>;
@@ -752,6 +1031,8 @@ function AdminPanel(){
         <div className="stat"><div className="num">{counts.pending}</div><div className="lbl">लंबित</div></div>
         <div className="stat"><div className="num">{counts.approved}</div><div className="lbl">स्वीकृत</div></div>
         <div className="stat"><div className="num">{counts.declined}</div><div className="lbl">अस्वीकृत</div></div>
+        <div className="stat"><div className="num">{counts.payPending}</div><div className="lbl">भुगतान सत्यापन लंबित</div></div>
+        <div className="stat"><div className="num">{counts.paid}</div><div className="lbl">भुगतान सत्यापित</div></div>
       </div>
 
       <div className="admin-toolbar">
@@ -772,7 +1053,10 @@ function AdminPanel(){
               <div className="app-row-name">{r.name}</div>
               <div className="app-row-sub">{r.id} · {r.mobile} · {r.district}{r.state?`, ${r.state}`:''}</div>
             </div>
-            <StatusBadge status={r.status}/>
+            <div style={{display:'flex',gap:6,flexWrap:'wrap',justifyContent:'flex-end'}}>
+              <StatusBadge status={r.status}/>
+              <PaymentBadge paymentStatus={r.paymentStatus}/>
+            </div>
           </div>
         </div>
       ))}
@@ -786,7 +1070,10 @@ function AdminPanel(){
             </div>
             <div className="modal-body">
               {selected.photo && <img src={selected.photo} className="modal-photo"/>}
-              <div style={{marginBottom:12}}><StatusBadge status={selected.status}/></div>
+              <div style={{marginBottom:12,display:'flex',gap:8,flexWrap:'wrap'}}>
+                <StatusBadge status={selected.status}/>
+                <PaymentBadge paymentStatus={selected.paymentStatus}/>
+              </div>
               {[
                 ["आवेदन संख्या",selected.id],
                 ["पद",selected.position],
@@ -809,11 +1096,15 @@ function AdminPanel(){
                 ["संलग्न दस्तावेज",[...(selected.docs||[]).filter(d=>d!=="अन्य"), (selected.docs||[]).includes("अन्य")?selected.docsOther:null].filter(Boolean).join(", ")],
                 ["हस्ताक्षर",selected.signature],
                 ["जमा दिनांक",selected.submittedDate],
+                ["UTR / लेन-देन संख्या",selected.utr],
               ].map(([k,v])=>(
                 <div className="detail-row" key={k}><div className="k">{k}</div><div>{v || "—"}</div></div>
               ))}
             </div>
             <div className="modal-actions">
+              <button className="btn btn-sm btn-approve" onClick={()=>updatePayment(selected,"paid")} disabled={selected.paymentStatus==="paid"}>✓ भुगतान सत्यापित करें</button>
+              {selected.paymentStatus==="paid" &&
+                <button className="btn btn-sm btn-outline" onClick={()=>updatePayment(selected,"unpaid")}>भुगतान रद्द करें</button>}
               <button className="btn btn-sm btn-approve" onClick={()=>updateStatus(selected,"approved")} disabled={selected.status==="approved"}>स्वीकृत करें</button>
               <button className="btn btn-sm btn-decline" onClick={()=>updateStatus(selected,"declined")} disabled={selected.status==="declined"}>अस्वीकार करें</button>
               {selected.status!=="pending" &&
