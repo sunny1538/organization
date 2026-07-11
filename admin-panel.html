@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>नशा मुक्ति अभियान — एडमिन पैनल</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --forest:#151A2E;
+  --forest-2:#2A3355;
+  --sage:#6B7394;
+  --paper:#F4F1EC;
+  --paper-2:#E9E4D8;
+  --gold:#E8863B;
+  --gold-2:#F0A968;
+  --maroon:#B23A3A;
+  --ink:#1B1E2C;
+  --ink-soft:#565C78;
+  --line:#D9D3C4;
+  --white:#FFFFFF;
+}
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;}
+
+.header{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-2) 100%);
+  color:var(--white);padding:20px;display:flex;justify-content:space-between;align-items:center;
+  border-bottom:4px solid var(--gold);flex-wrap:wrap;gap:10px;}
+.header-inner{display:flex;align-items:center;gap:14px;}
+.logo-seal{width:44px;height:44px;border-radius:50%;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;}
+.header h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;margin:0;}
+.header p{margin:0;font-size:12px;color:var(--gold-2);}
+.logout-btn{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);
+  padding:8px 16px;border-radius:7px;font-size:13px;cursor:pointer;font-family:inherit;}
+
+.content{max-width:960px;margin:0 auto;padding:22px 20px 60px;}
+.card{background:var(--white);border:1px solid var(--line);border-radius:4px;
+  box-shadow:0 1px 3px rgba(18,53,36,0.06);}
+
+.btn{border:none;border-radius:7px;padding:12px 26px;font-family:inherit;font-size:15px;
+  font-weight:700;cursor:pointer;}
+.btn-primary{background:var(--forest);color:var(--white);}
+.btn-primary:disabled{background:#9AA79E;cursor:not-allowed;}
+.btn-outline{background:transparent;border:1.5px solid var(--forest);color:var(--forest);}
+.btn-approve{background:#2C6E49;color:#fff;}
+.btn-decline{background:var(--maroon);color:#fff;}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:6px;}
+.err{color:var(--maroon);font-size:12.5px;margin-top:8px;}
+
+.admin-login{max-width:400px;margin:60px auto;padding:32px;text-align:center;}
+.admin-login h2{font-family:'Poppins',sans-serif;color:var(--forest);margin-top:0;}
+.admin-login input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
+  font-family:inherit;font-size:14.5px;margin:8px 0;background:var(--paper);}
+.admin-login .hint{font-size:12px;color:var(--ink-soft);margin-top:16px;line-height:1.6;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr);}}
+.stat{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;}
+.stat .num{font-size:24px;font-weight:800;color:var(--forest);font-family:'Poppins',sans-serif;}
+.stat .lbl{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+.admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+.admin-toolbar input[type=text]{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);
+  border-radius:7px;font-family:inherit;font-size:14px;background:var(--white);}
+.filter-chip{padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--white);
+  font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-soft);}
+.filter-chip.active{background:var(--forest);color:#fff;border-color:var(--forest);}
+.app-row{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px 16px;
+  margin-bottom:10px;cursor:pointer;display:flex;gap:12px;align-items:center;}
+.app-row:hover{box-shadow:0 2px 8px rgba(18,53,36,0.08);}
+.app-row-thumb{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper-2);flex-shrink:0;}
+.app-row-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;flex:1;}
+.app-row-name{font-weight:700;font-size:15px;color:var(--forest);}
+.app-row-sub{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;
+  font-size:13px;font-weight:700;}
+.badge.pending{background:#FCEFD0;color:#8A6416;}
+.badge.approved{background:#D9F0DE;color:#1F6B37;}
+.badge.declined{background:#F6DAD6;color:var(--maroon);}
+.empty{text-align:center;padding:50px 20px;color:var(--ink-soft);}
+.loading{text-align:center;padding:40px;color:var(--ink-soft);font-size:14px;}
+
+.modal-bg{position:fixed;inset:0;background:rgba(18,53,36,0.55);display:flex;align-items:center;
+  justify-content:center;z-index:50;padding:20px;}
+.modal{background:var(--white);border-radius:10px;max-width:560px;width:100%;max-height:86vh;
+  overflow-y:auto;padding:0;}
+.modal-head{background:var(--forest);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;
+  align-items:center;border-radius:10px 10px 0 0;position:sticky;top:0;}
+.modal-head h3{margin:0;font-family:'Poppins',sans-serif;font-size:17px;}
+.modal-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;}
+.modal-body{padding:18px 22px;}
+.modal-photo{width:96px;height:96px;border-radius:8px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;}
+.detail-row{display:grid;grid-template-columns:160px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--paper-2);font-size:13.5px;}
+.detail-row .k{color:var(--ink-soft);font-weight:600;}
+.modal-actions{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--forest);
+  color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:600;z-index:100;}
+.setup-warning{background:#FCEFD0;border:1px solid var(--gold-2);color:#7A5B12;padding:14px 18px;
+  border-radius:8px;font-size:13px;margin-bottom:18px;line-height:1.6;}
+.access-denied{background:#F6DAD6;border:1px solid var(--maroon);color:var(--maroon);padding:14px 18px;
+  border-radius:8px;font-size:13.5px;margin:20px 0;line-height:1.6;}
+
+@media(max-width:600px){
+  .content{padding:14px 10px 40px;}
+  .admin-toolbar{flex-direction:column;align-items:stretch;}
+  .admin-toolbar .filter-chip{flex:1;text-align:center;}
+  .modal-bg{align-items:flex-end;padding:0;}
+  .modal{max-width:100%;border-radius:10px 10px 0 0;max-height:92vh;}
+  .detail-row{grid-template-columns:120px 1fr;font-size:12.5px;}
+  .admin-login{margin:24px auto;padding:22px 18px;}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useCallback} = React;
+
+/* ---------- Supabase setup ---------- */
+const SUPABASE_URL = "https://lcljvptftxqfzftkoudx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_abe9rgF4HslhKU32hC_VPg_bC3EWK5V";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const TABLE = "registrations";
+const ORG_NAME = "नशा मुक्ति अभियान";
+
+function calcAge(dobStr){
+  if(!dobStr) return '';
+  const dob=new Date(dobStr);
+  if(isNaN(dob)) return '';
+  const t=new Date();
+  let age=t.getFullYear()-dob.getFullYear();
+  const m=t.getMonth()-dob.getMonth();
+  if(m<0 || (m===0 && t.getDate()<dob.getDate())) age--;
+  return age>=0 && age<120 ? age : '';
+}
+
+function fromRow(r){
+  return {
+    id: r.app_no, position: r.position, name: r.name, parentName: r.parent_name,
+    dob: r.dob, gender: r.gender, mobile: r.mobile, email: r.email,
+    village: r.village, post: r.post, tehsil: r.tehsil, district: r.district,
+    state: r.state, pin: r.pin,
+    qualification: r.qualification, qualificationOther: r.qualification_other,
+    board: r.board, passYear: r.pass_year, percent: r.percent,
+    experienceDetail: r.experience_detail, experienceYears: r.experience_years,
+    hasVehicle: r.has_vehicle, vehicleNo: r.vehicle_no,
+    hasLicense: r.has_license, licenseNo: r.license_no,
+    area: r.area, docs: r.docs || [], docsOther: r.docs_other,
+    place: r.place, signature: r.signature,
+    photo: r.photo_base64 || "",
+    status: r.status, submittedAt: r.submitted_at,
+    submittedDate: r.submitted_at ? new Date(r.submitted_at).toLocaleDateString('en-GB') : ''
+  };
+}
+
+async function dbFetchAll(){
+  const {data,error} = await sb.from(TABLE).select('*').order('submitted_at',{ascending:false});
+  if(error) throw error;
+  return (data||[]).map(fromRow);
+}
+async function dbUpdateStatus(appNo,status){
+  const {error} = await sb.from(TABLE).update({status}).eq('app_no',appNo);
+  if(error) throw error;
+}
+
+function toCSV(records){
+  const cols=["id","status","name","parentName","dob","gender","mobile","email","village","post","tehsil","district","state","pin","qualification","board","passYear","percent","experienceDetail","experienceYears","hasVehicle","vehicleNo","hasLicense","licenseNo","area","docs","place","signature","submittedDate"];
+  const esc=v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`;
+  const rows=[cols.join(",")];
+  records.forEach(r=>{
+    rows.push(cols.map(c=>esc(c==='docs' ? (r.docs||[]).join('; ') : r[c])).join(","));
+  });
+  return rows.join("\n");
+}
+function downloadCSV(records){
+  const blob=new Blob([toCSV(records)],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`nasha-mukti-applications-${Date.now()}.csv`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function StatusBadge({status}){
+  const map={pending:["लंबित","pending"],approved:["स्वीकृत","approved"],declined:["अस्वीकृत","declined"]};
+  const [label,cls]=map[status]||map.pending;
+  return <span className={`badge ${cls}`}>{label}</span>;
+}
+
+/* ---------- Real Supabase Auth login (no hardcoded password) ---------- */
+function AdminLogin({onSignedIn}){
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+  const [err,setErr]=useState("");
+  const [busy,setBusy]=useState(false);
+
+  const signIn=async()=>{
+    if(!email.trim() || !password){ setErr("कृपया ईमेल और पासवर्ड दोनों भरें।"); return; }
+    setErr(""); setBusy(true);
+    const {data,error} = await sb.auth.signInWithPassword({email:email.trim(),password});
+    if(error){
+      setErr("लॉगिन विफल: ईमेल या पासवर्ड गलत है।");
+      setBusy(false);
+      return;
+    }
+    onSignedIn();
+    setBusy(false);
+  };
+
+  return (
+    <div className="card admin-login">
+      <h2>एडमिन लॉगिन</h2>
+      <p style={{fontSize:13,color:"var(--ink-soft)",margin:0}}>{ORG_NAME}</p>
+      <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="ईमेल" onKeyDown={e=>e.key==='Enter'&&signIn()}/>
+      <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="पासवर्ड" onKeyDown={e=>e.key==='Enter'&&signIn()}/>
+      {err && <div className="err">{err}</div>}
+      <button className="btn btn-primary" style={{width:"100%",marginTop:8}} disabled={busy} onClick={signIn}>
+        {busy?"जांचा जा रहा है...":"प्रवेश करें"}
+      </button>
+      <p className="hint">यह लॉगिन Supabase Auth से सुरक्षित है। खाता केवल Supabase Dashboard से बनाया जा सकता है — किसी हार्डकोडेड पासवर्ड का उपयोग नहीं होता।</p>
+    </div>
+  );
+}
+
+function AdminPanel(){
+  const [session,setSession]=useState(null);
+  const [checkingSession,setCheckingSession]=useState(true);
+  const [isAdmin,setIsAdmin]=useState(null); // null = checking, true/false = resolved
+  const [records,setRecords]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const [loadErr,setLoadErr]=useState("");
+  const [search,setSearch]=useState("");
+  const [filter,setFilter]=useState("all");
+  const [selected,setSelected]=useState(null);
+  const [toast,setToast]=useState("");
+
+  useEffect(()=>{
+    sb.auth.getSession().then(({data})=>{
+      setSession(data.session);
+      setCheckingSession(false);
+    });
+    const {data:sub} = sb.auth.onAuthStateChange((_event,sess)=>{
+      setSession(sess);
+      if(!sess) setIsAdmin(null);
+    });
+    return ()=>sub.subscription.unsubscribe();
+  },[]);
+
+  // Verify the logged-in user is actually listed in public.admins.
+  useEffect(()=>{
+    if(!session){ setIsAdmin(null); return; }
+    let cancelled=false;
+    (async()=>{
+      const {data,error} = await sb.from('admins').select('user_id').eq('user_id',session.user.id).maybeSingle();
+      if(cancelled) return;
+      setIsAdmin(!error && !!data);
+    })();
+    return ()=>{cancelled=true;};
+  },[session]);
+
+  const load=useCallback(async()=>{
+    try{
+      const recs=await dbFetchAll();
+      setRecords(recs);
+      setLoadErr("");
+    }catch(e){
+      setLoadErr("डेटा लोड नहीं हो सका। सुनिश्चित करें कि आपका खाता public.admins टेबल में जोड़ा गया है।");
+    }
+    setLoading(false);
+  },[]);
+
+  useEffect(()=>{
+    if(!isAdmin) return;
+    load();
+    const channel = sb.channel('admin-registrations')
+      .on('postgres_changes',{event:'*',schema:'public',table:TABLE}, ()=>load())
+      .subscribe();
+    const poll=setInterval(load,6000);
+    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
+  },[isAdmin,load]);
+
+  const showToast=(msg)=>{ setToast(msg); setTimeout(()=>setToast(""),2500); };
+
+  const updateStatus=async(rec,status)=>{
+    try{
+      await dbUpdateStatus(rec.id,status);
+      const updated={...rec,status};
+      setRecords(prev=>prev.map(r=>r.id===rec.id?updated:r));
+      setSelected(updated);
+      showToast(status==="approved"?`${rec.name} का आवेदन स्वीकृत किया गया`: status==="declined"?`${rec.name} का आवेदन अस्वीकृत किया गया`:"स्थिति अद्यतन की गई");
+    }catch(e){
+      showToast("स्थिति अपडेट नहीं हो सकी।");
+    }
+  };
+
+  const filtered=records.filter(r=>{
+    if(filter!=="all" && r.status!==filter) return false;
+    if(!search.trim()) return true;
+    const q=search.trim().toLowerCase();
+    return (r.name||"").toLowerCase().includes(q) || (r.mobile||"").includes(q) || (r.id||"").toLowerCase().includes(q) || (r.district||"").toLowerCase().includes(q);
+  });
+
+  const counts={
+    all:records.length,
+    pending:records.filter(r=>r.status==="pending").length,
+    approved:records.filter(r=>r.status==="approved").length,
+    declined:records.filter(r=>r.status==="declined").length,
+  };
+
+  const logout=async()=>{ await sb.auth.signOut(); setIsAdmin(null); };
+
+  if(checkingSession){
+    return <div className="loading">लोड हो रहा है...</div>;
+  }
+
+  if(!session){
+    return (
+      <div className="content">
+        <AdminLogin onSignedIn={()=>{}}/>
+      </div>
+    );
+  }
+
+  if(isAdmin===null){
+    return <div className="loading">पहुँच जांची जा रही है...</div>;
+  }
+
+  if(isAdmin===false){
+    return (
+      <div className="content">
+        <div className="access-denied">
+          ⚠️ आपका खाता लॉगिन तो हो गया, लेकिन इसे एडमिन एक्सेस नहीं दिया गया है। कृपया व्यवस्थापक से public.admins टेबल में अपना खाता जुड़वाएं।
+        </div>
+        <button className="btn btn-outline" onClick={logout}>लॉगआउट करें</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="content">
+      {loadErr && <div className="setup-warning">⚠️ {loadErr}</div>}
+
+      <div className="stats">
+        <div className="stat"><div className="num">{counts.all}</div><div className="lbl">कुल आवेदन</div></div>
+        <div className="stat"><div className="num">{counts.pending}</div><div className="lbl">लंबित</div></div>
+        <div className="stat"><div className="num">{counts.approved}</div><div className="lbl">स्वीकृत</div></div>
+        <div className="stat"><div className="num">{counts.declined}</div><div className="lbl">अस्वीकृत</div></div>
+      </div>
+
+      <div className="admin-toolbar">
+        <input type="text" placeholder="नाम, मोबाइल, आवेदन संख्या या जिला से खोजें..." value={search} onChange={e=>setSearch(e.target.value)}/>
+        {[["all","सभी"],["pending","लंबित"],["approved","स्वीकृत"],["declined","अस्वीकृत"]].map(([k,l])=>(
+          <button key={k} className={`filter-chip ${filter===k?'active':''}`} onClick={()=>setFilter(k)}>{l} ({counts[k]})</button>
+        ))}
+        <button className="btn btn-outline btn-sm" onClick={()=>downloadCSV(filtered)}>⬇ CSV डाउनलोड करें</button>
+      </div>
+
+      {loading && <div className="loading">लोड हो रहा है...</div>}
+      {!loading && filtered.length===0 && <div className="empty">कोई आवेदन नहीं मिला।</div>}
+      {!loading && filtered.map(r=>(
+        <div className="app-row" key={r.id} onClick={()=>setSelected(r)}>
+          {r.photo ? <img src={r.photo} className="app-row-thumb"/> : <div className="app-row-thumb"/>}
+          <div className="app-row-top">
+            <div>
+              <div className="app-row-name">{r.name}</div>
+              <div className="app-row-sub">{r.id} · {r.mobile} · {r.district}{r.state?`, ${r.state}`:''}</div>
+            </div>
+            <StatusBadge status={r.status}/>
+          </div>
+        </div>
+      ))}
+
+      {selected &&
+        <div className="modal-bg" onClick={()=>setSelected(null)}>
+          <div className="modal" onClick={e=>e.stopPropagation()}>
+            <div className="modal-head">
+              <h3>{selected.name}</h3>
+              <button className="modal-close" onClick={()=>setSelected(null)}>×</button>
+            </div>
+            <div className="modal-body">
+              {selected.photo && <img src={selected.photo} className="modal-photo"/>}
+              <div style={{marginBottom:12}}><StatusBadge status={selected.status}/></div>
+              {[
+                ["आवेदन संख्या",selected.id],
+                ["पद",selected.position],
+                ["पिता/पति का नाम",selected.parentName],
+                ["जन्म तिथि",selected.dob],
+                ["आयु",calcAge(selected.dob)],
+                ["लिंग",selected.gender],
+                ["मोबाइल",selected.mobile],
+                ["ईमेल",selected.email],
+                ["पता",[selected.village,selected.post,selected.tehsil,selected.district,selected.state,selected.pin].filter(Boolean).join(", ")],
+                ["योग्यता",selected.qualification==="अन्य"?selected.qualificationOther:selected.qualification],
+                ["बोर्ड/विश्वविद्यालय",selected.board],
+                ["उत्तीर्ण वर्ष",selected.passYear],
+                ["प्रतिशत/ग्रेड",selected.percent],
+                ["कार्य अनुभव",selected.experienceDetail],
+                ["कुल अनुभव (वर्ष)",selected.experienceYears],
+                ["दोपहिया वाहन",selected.hasVehicle + (selected.vehicleNo?` (${selected.vehicleNo})`:'')],
+                ["ड्राइविंग लाइसेंस",selected.hasLicense + (selected.licenseNo?` (${selected.licenseNo})`:'')],
+                ["इच्छित क्षेत्र",selected.area],
+                ["संलग्न दस्तावेज",[...(selected.docs||[]).filter(d=>d!=="अन्य"), (selected.docs||[]).includes("अन्य")?selected.docsOther:null].filter(Boolean).join(", ")],
+                ["हस्ताक्षर",selected.signature],
+                ["जमा दिनांक",selected.submittedDate],
+              ].map(([k,v])=>(
+                <div className="detail-row" key={k}><div className="k">{k}</div><div>{v || "—"}</div></div>
+              ))}
+            </div>
+            <div className="modal-actions">
+              <button className="btn btn-sm btn-approve" onClick={()=>updateStatus(selected,"approved")} disabled={selected.status==="approved"}>स्वीकृत करें</button>
+              <button className="btn btn-sm btn-decline" onClick={()=>updateStatus(selected,"declined")} disabled={selected.status==="declined"}>अस्वीकार करें</button>
+              {selected.status!=="pending" &&
+                <button className="btn btn-sm btn-outline" onClick={()=>updateStatus(selected,"pending")}>लंबित करें</button>}
+            </div>
+          </div>
+        </div>
+      }
+      {toast && <div className="toast">{toast}</div>}
+      <div style={{textAlign:"right",marginTop:20}}>
+        <button className="btn btn-outline btn-sm" onClick={logout}>लॉगआउट करें</button>
+      </div>
+    </div>
+  );
+}
+
+function App(){
+  return (
+    <div>
+      <div className="header">
+        <div className="header-inner">
+          <div className="logo-seal">🌿</div>
+          <div>
+            <h1>नशा मुक्ति अभियान — एडमिन</h1>
+            <p>केवल अधिकृत उपयोगकर्ताओं हेतु</p>
+          </div>
+        </div>
+      </div>
+      <AdminPanel/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
