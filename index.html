@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>नशा मुक्ति अभियान — आवेदन प्रणाली</title>
+<title>नशा मुक्ति अभियान — स्वयंसेवक आवेदन</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap');
 
@@ -16,7 +16,6 @@
   --gold:#E8863B;
   --gold-2:#F0A968;
   --maroon:#B23A3A;
-  --maroon-2:#C24F4F;
   --ink:#1B1E2C;
   --ink-soft:#565C78;
   --line:#D9D3C4;
@@ -25,37 +24,29 @@
 *{box-sizing:border-box;}
 body{margin:0;padding:0;background:var(--paper);color:var(--ink);
   font-family:'Noto Sans Devanagari','Noto Sans',sans-serif;}
-.app{min-height:100vh;background:
-  radial-gradient(circle at 10% 0%, #1c4a34 0%, transparent 45%),
-  var(--paper);}
+.app{min-height:100vh;}
 
 .header{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-2) 100%);
   color:var(--white);padding:22px 20px 26px;position:relative;overflow:hidden;
   border-bottom:4px solid var(--gold);}
 .header::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
-  border-radius:50%;border:1px solid rgba(227,190,99,0.18);}
-.header::before{content:"";position:absolute;right:-10px;top:20px;width:150px;height:150px;
-  border-radius:50%;border:1px solid rgba(227,190,99,0.14);}
-.header-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;position:relative;z-index:1;}
+  border-radius:50%;border:1px solid rgba(232,134,59,0.18);}
+.header-inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:16px;position:relative;z-index:1;}
 .logo-seal{width:56px;height:56px;border-radius:50%;background:var(--gold);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   border:2px solid rgba(255,255,255,0.5);font-size:26px;}
-.header h1{font-family:'Poppins',sans-serif;font-weight:900;font-size:26px;margin:0 0 4px;letter-spacing:0.3px;}
-.header p{margin:0;font-size:13.5px;color:var(--gold-2);letter-spacing:0.4px;}
-.conn-dot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--gold-2);
-  background:rgba(0,0,0,0.18);padding:4px 10px;border-radius:20px;position:absolute;right:20px;top:20px;}
-.conn-dot .dot{width:7px;height:7px;border-radius:50%;background:#6FCF97;}
-.conn-dot.off .dot{background:#E06A5E;}
+.header h1{font-family:'Poppins',sans-serif;font-weight:900;font-size:24px;margin:0 0 4px;}
+.header p{margin:0;font-size:13.5px;color:var(--gold-2);}
 
-.tabbar{max-width:920px;margin:0 auto;display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap;}
+.tabbar{max-width:820px;margin:0 auto;display:flex;gap:6px;padding:14px 20px 0;flex-wrap:wrap;}
 .tab-btn{border:1px solid var(--line);background:var(--white);color:var(--ink-soft);
   padding:10px 16px;border-radius:10px 10px 0 0;font-size:14.5px;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:all .15s ease;border-bottom:none;}
+  cursor:pointer;font-family:inherit;border-bottom:none;}
 .tab-btn.active{background:var(--paper);color:var(--forest);border-color:var(--forest);
   box-shadow:0 -2px 0 var(--gold) inset;}
 .tab-btn:hover:not(.active){background:var(--paper-2);}
 
-.content{max-width:920px;margin:0 auto;padding:22px 20px 60px;}
+.content{max-width:820px;margin:0 auto;padding:22px 20px 60px;}
 .card{background:var(--white);border:1px solid var(--line);border-radius:4px;
   box-shadow:0 1px 3px rgba(18,53,36,0.06);}
 
@@ -63,8 +54,8 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
   padding:18px 22px;border-bottom:2px solid var(--forest);flex-wrap:wrap;gap:10px;}
 .form-meta h2{font-family:'Poppins',sans-serif;font-size:20px;margin:0;color:var(--forest);}
 .form-meta .meta-right{text-align:right;font-size:12.5px;color:var(--ink-soft);}
-.fee-note{display:inline-flex;align-items:center;gap:8px;background:#FCF6E5;
-  border:1px solid var(--gold-2);color:#7A5B12;padding:8px 14px;border-radius:6px;
+.free-note{display:inline-flex;align-items:center;gap:8px;background:#E4F1E8;
+  border:1px solid #9BC7A9;color:#1F6B37;padding:8px 14px;border-radius:6px;
   font-size:13.5px;font-weight:600;margin:16px 22px 0;}
 
 .section{padding:18px 22px;border-bottom:1px solid var(--line);}
@@ -108,20 +99,9 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
 .btn-primary{background:var(--forest);color:var(--white);}
 .btn-primary:hover{filter:brightness(1.1);}
 .btn-primary:disabled{background:#9AA79E;cursor:not-allowed;}
-.btn-gold{background:var(--gold);color:#3B2C09;}
 .btn-outline{background:transparent;border:1.5px solid var(--forest);color:var(--forest);}
-.btn-approve{background:#2C6E49;color:#fff;}
-.btn-decline{background:var(--maroon);color:#fff;}
-.btn-sm{padding:8px 14px;font-size:13px;border-radius:6px;}
 .err{color:var(--maroon);font-size:12.5px;margin-top:8px;}
 
-.success-wrap{text-align:center;padding:50px 24px;}
-.stamp{width:120px;height:120px;border-radius:50%;border:4px solid var(--forest);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
-  color:var(--forest);font-weight:900;font-size:15px;text-align:center;line-height:1.3;
-  transform:rotate(-8deg);animation:stampIn .5s cubic-bezier(.2,1.4,.4,1);
-  font-family:'Poppins',sans-serif;box-shadow:0 0 0 3px var(--paper) inset;}
-@keyframes stampIn{from{transform:rotate(-8deg) scale(2.4);opacity:0;}to{transform:rotate(-8deg) scale(1);opacity:1;}}
 .app-no{display:inline-block;background:var(--paper-2);border:1px solid var(--line);
   padding:10px 18px;border-radius:8px;font-family:monospace;font-size:18px;font-weight:700;
   letter-spacing:1px;color:var(--forest);margin:14px 0;}
@@ -138,148 +118,22 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
 .badge.pending{background:#FCEFD0;color:#8A6416;}
 .badge.approved{background:#D9F0DE;color:#1F6B37;}
 .badge.declined{background:#F6DAD6;color:var(--maroon);}
-
-.admin-login{max-width:380px;margin:40px auto;padding:30px;text-align:center;}
-.admin-login input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
-  font-family:inherit;font-size:14.5px;margin:14px 0;background:var(--paper);text-align:center;letter-spacing:2px;}
-.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
-@media(max-width:700px){.stats{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:420px){.stats{grid-template-columns:repeat(2,1fr);}}
-.stat{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center;}
-.stat .num{font-size:24px;font-weight:800;color:var(--forest);font-family:'Poppins',sans-serif;}
-.stat .lbl{font-size:12px;color:var(--ink-soft);margin-top:2px;}
-.admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
-.admin-toolbar input[type=text]{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);
-  border-radius:7px;font-family:inherit;font-size:14px;background:var(--white);}
-.filter-chip{padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--white);
-  font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-soft);}
-.filter-chip.active{background:var(--forest);color:#fff;border-color:var(--forest);}
-.app-row{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:14px 16px;
-  margin-bottom:10px;cursor:pointer;transition:box-shadow .15s ease;display:flex;gap:12px;align-items:center;}
-.app-row:hover{box-shadow:0 2px 8px rgba(18,53,36,0.08);}
-.app-row-thumb{width:42px;height:42px;border-radius:50%;object-fit:cover;background:var(--paper-2);flex-shrink:0;}
-.app-row-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;flex:1;}
-.app-row-name{font-weight:700;font-size:15px;color:var(--forest);}
-.app-row-sub{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
 .empty{text-align:center;padding:50px 20px;color:var(--ink-soft);}
-.loading{text-align:center;padding:40px;color:var(--ink-soft);font-size:14px;}
-
-.modal-bg{position:fixed;inset:0;background:rgba(18,53,36,0.55);display:flex;align-items:center;
-  justify-content:center;z-index:50;padding:20px;}
-.modal{background:var(--white);border-radius:10px;max-width:560px;width:100%;max-height:86vh;
-  overflow-y:auto;padding:0;}
-.modal-head{background:var(--forest);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;
-  align-items:center;border-radius:10px 10px 0 0;position:sticky;top:0;}
-.modal-head h3{margin:0;font-family:'Poppins',sans-serif;font-size:17px;}
-.modal-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;}
-.modal-body{padding:18px 22px;}
-.modal-photo{width:96px;height:96px;border-radius:8px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;}
-.detail-row{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--paper-2);font-size:13.5px;}
-.detail-row .k{color:var(--ink-soft);font-weight:600;}
-.modal-actions{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--forest);
-  color:#fff;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:600;z-index:100;
-  box-shadow:0 4px 14px rgba(0,0,0,0.2);}
+.success-wrap{text-align:center;padding:44px 24px;}
+.stamp{width:110px;height:110px;border-radius:50%;border:4px solid var(--forest);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  color:var(--forest);font-weight:900;font-size:14px;text-align:center;line-height:1.3;
+  transform:rotate(-8deg);font-family:'Poppins',sans-serif;}
 .note{font-size:11.5px;color:var(--ink-soft);text-align:center;padding:10px 22px 0;}
-.setup-warning{background:#FCEFD0;border:1px solid var(--gold-2);color:#7A5B12;padding:14px 18px;
-  border-radius:8px;font-size:13px;margin-bottom:18px;line-height:1.6;}
 
-/* ---------- Stepper ---------- */
-.stepper{display:flex;align-items:flex-start;justify-content:center;gap:0;padding:18px 16px 20px;
-  background:var(--white);border-bottom:1px solid var(--line);}
-.step{display:flex;flex-direction:column;align-items:center;flex:1;max-width:150px;position:relative;}
-.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:800;border:2px solid var(--line);background:var(--white);color:var(--ink-soft);
-  transition:all .2s ease;flex-shrink:0;z-index:1;}
-.step.done .step-circle{background:var(--forest);border-color:var(--forest);color:#fff;}
-.step.active .step-circle{background:var(--gold);border-color:var(--gold);color:#3B2C09;box-shadow:0 0 0 4px rgba(199,154,61,0.18);}
-.step-label{font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:7px;text-align:center;letter-spacing:.2px;}
-.step.done .step-label,.step.active .step-label{color:var(--forest);}
-.step-line{position:absolute;top:16px;left:calc(-50% + 16px);right:calc(50% + 16px);height:2px;background:var(--line);z-index:0;}
-.step.done .step-line{background:var(--forest);}
-.step:first-child .step-line{display:none;}
-@media(max-width:520px){.step-label{font-size:10px;}.step-circle{width:26px;height:26px;font-size:12px;}.step-line{top:13px;}}
-
-/* ---------- Payment ---------- */
-.pay-wrap{padding:34px 22px;text-align:center;}
-.pay-amount{font-family:'Poppins',sans-serif;font-size:38px;font-weight:900;color:var(--forest);margin:6px 0 2px;}
-.pay-box{max-width:360px;margin:20px auto 0;background:var(--paper-2);border:1px dashed var(--line);
-  border-radius:10px;padding:20px;text-align:left;}
-.pay-box .row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line);}
-.pay-box .row:last-child{border-bottom:none;}
-.pay-btn-upi{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#3B2C09;
-  padding:13px 26px;border-radius:8px;font-weight:800;font-size:15px;text-decoration:none;margin-top:18px;}
-.pay-field{max-width:360px;margin:20px auto 0;text-align:left;}
-.pay-field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px;}
-.pay-field input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:7px;
-  font-family:inherit;font-size:14.5px;background:var(--white);text-align:center;letter-spacing:1px;}
-.pay-note{font-size:12px;color:var(--ink-soft);max-width:380px;margin:12px auto 0;line-height:1.6;}
-.pay-status-pill{display:inline-flex;align-items:center;gap:6px;background:#FCEFD0;color:#8A6416;
-  padding:7px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-top:10px;}
-
-/* ---------- Certificate / Volunteer ID ---------- */
-.cert-wrap{padding:30px 20px;}
-.cert-card{max-width:480px;margin:0 auto;background:var(--white);border:3px solid var(--forest);
-  border-radius:12px;padding:26px 24px;position:relative;overflow:hidden;}
-.cert-card::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold-2);border-radius:8px;pointer-events:none;}
-.cert-head{text-align:center;border-bottom:2px solid var(--gold);padding-bottom:14px;margin-bottom:16px;}
-.cert-head .seal{font-size:30px;}
-.cert-head h3{font-family:'Poppins',sans-serif;color:var(--forest);margin:6px 0 2px;font-size:19px;}
-.cert-head p{margin:0;font-size:11.5px;color:var(--ink-soft);letter-spacing:.4px;}
-.cert-body{display:flex;gap:16px;align-items:center;}
-.cert-photo{width:84px;height:84px;border-radius:8px;object-fit:cover;border:2px solid var(--line);flex-shrink:0;}
-.cert-photo-ph{width:84px;height:84px;border-radius:8px;background:var(--paper-2);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-soft);text-align:center;}
-.cert-name{font-family:'Poppins',sans-serif;font-size:18px;color:var(--forest);margin:0 0 4px;}
-.cert-id{font-family:monospace;font-weight:700;color:var(--maroon);font-size:14px;}
-.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:16px;font-size:12.5px;}
-.cert-grid .k{color:var(--ink-soft);}
-.cert-grid .v{font-weight:700;color:var(--ink);}
-.cert-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;padding-top:14px;border-top:1px dashed var(--line);}
-.cert-sign{font-family:'Poppins',sans-serif;font-size:15px;color:var(--forest);border-top:1px solid var(--ink-soft);padding-top:4px;}
-.cert-stampmini{width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);display:flex;
-  align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--forest);text-align:center;
-  transform:rotate(-10deg);font-family:'Poppins',sans-serif;line-height:1.2;}
-.cert-actions{max-width:480px;margin:20px auto 0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-@media print{
-  body *{visibility:hidden;}
-  .cert-card,.cert-card *{visibility:visible;}
-  .cert-card{position:absolute;top:0;left:0;margin:0;box-shadow:none;}
-}
-
-/* ---------- Mobile polish ---------- */
 @media(max-width:600px){
   .header{padding:16px 14px 20px;}
   .header h1{font-size:20px;}
-  .header p{font-size:12px;}
-  .logo-seal{width:44px;height:44px;font-size:20px;}
-  .conn-dot{position:static;display:inline-flex;margin-top:8px;}
-  .header-inner{flex-wrap:wrap;}
-  .tabbar{padding:10px 12px 0;gap:4px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
-  .tab-btn{padding:9px 12px;font-size:13px;white-space:nowrap;flex-shrink:0;}
   .content{padding:14px 10px 40px;}
-  .form-meta{padding:14px 16px;}
-  .form-meta h2{font-size:17px;}
-  .fee-note{margin:12px 16px 0;font-size:12.5px;padding:8px 12px;}
-  .section{padding:14px 16px;}
-  .section-title h3{font-size:15px;}
   .field input,.field select,.field textarea{font-size:16px;padding:11px 12px;}
-  .submit-bar{padding:16px;}
   .submit-bar .btn{width:100%;}
   .status-search{flex-direction:column;padding:16px;}
   .status-search .btn{width:100%;}
-  .admin-toolbar{flex-direction:column;align-items:stretch;}
-  .admin-toolbar .filter-chip{flex:1;text-align:center;}
-  .modal{max-height:92vh;border-radius:10px 10px 0 0;}
-  .modal-bg{align-items:flex-end;padding:0;}
-  .modal{max-width:100%;}
-  .detail-row{grid-template-columns:120px 1fr;font-size:12.5px;}
-  .pay-btn-upi{width:100%;justify-content:center;}
-  .pay-box,.pay-field,.pay-note{max-width:100%;}
-  .cert-card{padding:18px 16px;}
-  .cert-body{flex-wrap:wrap;}
-  .cert-actions .btn{flex:1;min-width:130px;}
-  .admin-login{margin:20px auto;padding:22px 18px;}
 }
 </style>
 </head>
@@ -294,20 +148,11 @@ body{margin:0;padding:0;background:var(--paper);color:var(--ink);
 const {useState,useEffect,useRef,useCallback} = React;
 
 /* ---------- Supabase setup ---------- */
-const SUPABASE_URL = "https://teoudlvdneuxjqftnfnr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_hJMf8h4IyVydRoiDJ1VHCA_dwxyDfjQ";
+const SUPABASE_URL = "https://lcljvptftxqfzftkoudx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_abe9rgF4HslhKU32hC_VPg_bC3EWK5V";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const TABLE = "registrations";
-
-/* ---------- Payment / Org config — apna sahi UPI ID yahin daal do ---------- */
-const UPI_ID = "yourupi@bank";        // TODO: apna asli UPI ID daalein
-const UPI_PAYEE_NAME = "Nasha Mukti Abhiyan";
 const ORG_NAME = "नशा मुक्ति अभियान";
-const FEE_AMOUNT = 199;
-function buildUpiLink(appNo){
-  const note = encodeURIComponent(`Volunteer ID Fee ${appNo}`);
-  return `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${FEE_AMOUNT}&cu=INR&tn=${note}`;
-}
 
 function pad(n,len){return String(n).padStart(len,'0');}
 function todayStr(){
@@ -330,6 +175,9 @@ const AREA_OPTIONS=[
   "पुनर्वास केंद्र सहायता","कार्यालय प्रशासन","अन्य"
 ];
 
+// Note: no ID-proof / bank-document options here by design.
+const DOC_OPTIONS=["पासपोर्ट आकार फोटो","शैक्षणिक प्रमाण पत्र","अनुभव प्रमाण पत्र (यदि हो)","अन्य"];
+
 const emptyForm={
   position:"", name:"", parentName:"", dob:"", gender:"", mobile:"", email:"",
   village:"", post:"", tehsil:"", district:"", state:"", pin:"",
@@ -339,16 +187,15 @@ const emptyForm={
   hasLicense:"", licenseNo:"",
   area:"", docs:[], docsOther:"",
   place:"", signature:"", declared:false,
-  photo:"",
-  paymentStatus:"unpaid", utr:"", paidAt:""
+  photo:""
 };
 
-function genAppNo(existingCount){
+function genAppNo(){
   const y=new Date().getFullYear();
-  return `NMA/${y}/${pad(existingCount+1,4)}`;
+  const rand=Math.floor(1000+Math.random()*9000);
+  return `NMA/${y}/${rand}`;
 }
 
-/* camelCase <-> snake_case row mapping */
 function toRow(f){
   return {
     app_no: f.id, position: f.position, name: f.name, parent_name: f.parentName,
@@ -363,57 +210,14 @@ function toRow(f){
     area: f.area, docs: f.docs, docs_other: f.docsOther,
     place: f.place, signature: f.signature,
     photo_base64: f.photo || null,
-    status: f.status, submitted_at: f.submittedAt,
-    payment_status: f.paymentStatus || "unpaid", utr: f.utr || null, paid_at: f.paidAt || null
-  };
-}
-function fromRow(r){
-  return {
-    id: r.app_no, position: r.position, name: r.name, parentName: r.parent_name,
-    dob: r.dob, gender: r.gender, mobile: r.mobile, email: r.email,
-    village: r.village, post: r.post, tehsil: r.tehsil, district: r.district,
-    state: r.state, pin: r.pin,
-    qualification: r.qualification, qualificationOther: r.qualification_other,
-    board: r.board, passYear: r.pass_year, percent: r.percent,
-    experienceDetail: r.experience_detail, experienceYears: r.experience_years,
-    hasVehicle: r.has_vehicle, vehicleNo: r.vehicle_no,
-    hasLicense: r.has_license, licenseNo: r.license_no,
-    area: r.area, docs: r.docs || [], docsOther: r.docs_other,
-    place: r.place, signature: r.signature,
-    photo: r.photo_base64 || "",
-    status: r.status, submittedAt: r.submitted_at,
-    submittedDate: r.submitted_at ? new Date(r.submitted_at).toLocaleDateString('en-GB') : '',
-    paymentStatus: r.payment_status || "unpaid", utr: r.utr || "", paidAt: r.paid_at || ""
+    status: "pending", submitted_at: f.submittedAt
   };
 }
 
 async function dbInsert(record){
   const {data,error} = await sb.from(TABLE).insert([toRow(record)]).select();
   if(error) throw error;
-  return data && data[0] ? fromRow(data[0]) : record;
-}
-async function dbCount(){
-  const {count,error} = await sb.from(TABLE).select('*',{count:'exact',head:true});
-  if(error) return 0;
-  return count || 0;
-}
-async function dbFetchByAppNo(appNo){
-  const {data,error} = await sb.from(TABLE).select('*').eq('app_no',appNo).maybeSingle();
-  if(error || !data) return null;
-  return fromRow(data);
-}
-async function dbFetchAll(){
-  const {data,error} = await sb.from(TABLE).select('*').order('submitted_at',{ascending:false});
-  if(error) throw error;
-  return (data||[]).map(fromRow);
-}
-async function dbUpdateStatus(appNo,status){
-  const {error} = await sb.from(TABLE).update({status}).eq('app_no',appNo);
-  if(error) throw error;
-}
-async function dbUpdatePayment(appNo,fields){
-  const {error} = await sb.from(TABLE).update(fields).eq('app_no',appNo);
-  if(error) throw error;
+  return data && data[0] ? data[0] : record;
 }
 
 /* resize + compress a photo file to a small base64 jpeg */
@@ -485,63 +289,11 @@ function PhotoField({photo,onChange}){
   );
 }
 
-function Stepper({stage}){
-  const steps=[["form","फॉर्म"],["payment","भुगतान"],["certificate","प्रमाणपत्र"]];
-  const idx=steps.findIndex(s=>s[0]===stage);
-  return (
-    <div className="stepper">
-      {steps.map(([key,label],i)=>(
-        <div className={`step ${i<idx?'done':''} ${i===idx?'active':''}`} key={key}>
-          {i>0 && <div className="step-line"/>}
-          <div className="step-circle">{i<idx?'✓':i+1}</div>
-          <div className="step-label">{label}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function CertificateView({rec}){
-  return (
-    <div className="cert-wrap">
-      <div className="cert-card">
-        <div className="cert-head">
-          <div className="seal">🌿</div>
-          <h3>{ORG_NAME}</h3>
-          <p>वॉलंटियर परिचय पत्र / प्रमाणपत्र (VOLUNTEER ID PROOF)</p>
-        </div>
-        <div className="cert-body">
-          {rec.photo ? <img src={rec.photo} className="cert-photo"/> : <div className="cert-photo-ph">फोटो नहीं</div>}
-          <div>
-            <div className="cert-name">{rec.name}</div>
-            <div className="cert-id">{rec.id}</div>
-          </div>
-        </div>
-        <div className="cert-grid">
-          <div><span className="k">पद: </span><span className="v">{rec.position||'—'}</span></div>
-          <div><span className="k">क्षेत्र: </span><span className="v">{rec.area||'—'}</span></div>
-          <div><span className="k">जिला: </span><span className="v">{rec.district||'—'}</span></div>
-          <div><span className="k">राज्य: </span><span className="v">{rec.state||'—'}</span></div>
-          <div><span className="k">मोबाइल: </span><span className="v">{rec.mobile||'—'}</span></div>
-          <div><span className="k">जारी दिनांक: </span><span className="v">{todayStr()}</span></div>
-        </div>
-        <div className="cert-foot">
-          <div className="cert-sign">{rec.signature||rec.name}</div>
-          <div className="cert-stampmini">सत्यापित<br/>{ORG_NAME.split(' ')[0]}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function RegistrationForm(){
   const [f,setF]=useState(emptyForm);
   const [error,setError]=useState("");
   const [submitting,setSubmitting]=useState(false);
   const [result,setResult]=useState(null);
-  const [utrInput,setUtrInput]=useState("");
-  const [payErr,setPayErr]=useState("");
-  const [payBusy,setPayBusy]=useState(false);
 
   const set=(k,v)=>setF(prev=>({...prev,[k]:v}));
   const toggleDoc=(doc)=>{
@@ -573,96 +325,29 @@ function RegistrationForm(){
     if(err){ setError(err); return; }
     setError(""); setSubmitting(true);
     try{
-      const count=await dbCount();
-      const appNo=genAppNo(count);
-      const record={...f, id:appNo, status:"pending", submittedAt:new Date().toISOString()};
-      const saved=await dbInsert(record);
+      const appNo=genAppNo();
+      const record={...f, id:appNo, submittedAt:new Date().toISOString()};
+      await dbInsert(record);
       setResult({...record, submittedDate: todayStr()});
     }catch(e){
-      setError("जमा करते समय त्रुटि हुई। कृपया सुनिश्चित करें कि Supabase टेबल सही तरीके से बन चुकी है, फिर पुनः प्रयास करें।");
+      setError("जमा करते समय त्रुटि हुई। कृपया पुनः प्रयास करें, या हमसे संपर्क करें।");
     }
     setSubmitting(false);
   };
 
-  /* keep result in sync with DB (admin approval / payment verification) */
-  useEffect(()=>{
-    if(!result) return;
-    const refresh=async()=>{
-      const fresh=await dbFetchByAppNo(result.id);
-      if(fresh) setResult(prev=>({...prev,...fresh}));
-    };
-    const channel = sb.channel(`myapp-${result.id}`)
-      .on('postgres_changes',{event:'UPDATE',schema:'public',table:TABLE,filter:`app_no=eq.${result.id}`},
-        payload=>{ setResult(prev=>({...prev,...fromRow(payload.new)})); })
-      .subscribe();
-    const poll=setInterval(refresh,6000);
-    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
-  },[result && result.id]);
-
-  const confirmPayment=async()=>{
-    if(!utrInput.trim()){ setPayErr("कृपया UTR / लेन-देन संख्या भरें।"); return; }
-    setPayErr(""); setPayBusy(true);
-    try{
-      await dbUpdatePayment(result.id,{payment_status:"pending_verification", utr:utrInput.trim(), paid_at:new Date().toISOString()});
-      setResult(prev=>({...prev, paymentStatus:"pending_verification", utr:utrInput.trim()}));
-    }catch(e){
-      setPayErr("भुगतान जानकारी सुरक्षित नहीं हो सकी। पुनः प्रयास करें।");
-    }
-    setPayBusy(false);
-  };
-
   if(result){
-    const stage = (result.paymentStatus==="paid" && result.status==="approved") ? "certificate" : "payment";
-
-    if(stage==="payment"){
-      return (
-        <div className="card">
-          <Stepper stage="payment"/>
-          <div className="pay-wrap">
-            <div style={{fontSize:13,color:"var(--ink-soft)"}}>आवेदन सफलतापूर्वक जमा हुआ — आवेदन संख्या</div>
-            <div className="app-no">{result.id}</div>
-            <div style={{marginTop:18,fontSize:13.5,color:"var(--ink-soft)"}}>वॉलंटियर ID शुल्क</div>
-            <div className="pay-amount">₹{FEE_AMOUNT}</div>
-
-            {result.paymentStatus==="pending_verification" ? (
-              <>
-                <div className="pay-status-pill">⏳ भुगतान सत्यापन हेतु लंबित</div>
-                <p className="pay-note">आपका UTR ({result.utr}) प्राप्त हो गया है। एडमिन द्वारा सत्यापन के बाद यह पृष्ठ स्वतः अगले चरण (प्रमाणपत्र) पर बढ़ जाएगा।</p>
-              </>
-            ) : (
-              <>
-                <div className="pay-box">
-                  <div className="row"><span>UPI ID</span><strong>{UPI_ID}</strong></div>
-                  <div className="row"><span>प्राप्तकर्ता</span><strong>{UPI_PAYEE_NAME}</strong></div>
-                  <div className="row"><span>राशि</span><strong>₹{FEE_AMOUNT}</strong></div>
-                </div>
-                <a className="pay-btn-upi" href={buildUpiLink(result.id)}>📲 UPI ऐप से भुगतान करें</a>
-                <p className="pay-note">भुगतान के बाद अपने UPI ऐप से मिला UTR / लेन-देन संख्या नीचे भरें और पुष्टि करें। एडमिन सत्यापन के बाद आपका प्रमाणपत्र जारी होगा।</p>
-                <div className="pay-field">
-                  <label>UTR / लेन-देन संख्या *</label>
-                  <input type="text" value={utrInput} onChange={e=>setUtrInput(e.target.value)} placeholder="जैसे 302512345678"/>
-                </div>
-                {payErr && <div className="err">{payErr}</div>}
-                <div style={{marginTop:16}}>
-                  <button className="btn btn-primary" disabled={payBusy} onClick={confirmPayment}>
-                    {payBusy?"सुरक्षित हो रहा है...":"भुगतान की पुष्टि करें"}
-                  </button>
-                </div>
-              </>
-            )}
-            <p className="pay-note" style={{marginTop:20}}>आप "स्थिति जांचें" टैब में जाकर मोबाइल नंबर व आवेदन संख्या से अपनी प्रगति कभी भी देख सकते हैं।</p>
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div className="card">
-        <Stepper stage="certificate"/>
-        <CertificateView rec={result}/>
-        <div className="cert-actions">
-          <button className="btn btn-gold" onClick={()=>window.print()}>🖨 प्रिंट करें</button>
-          <button className="btn btn-outline" onClick={()=>{setResult(null); setF(emptyForm); setUtrInput("");}}>नया आवेदन भरें</button>
+        <div className="success-wrap">
+          <div className="stamp">आवेदन<br/>प्राप्त हुआ</div>
+          <h2 style={{fontFamily:"'Poppins',sans-serif",color:"var(--forest)",margin:"0 0 6px"}}>धन्यवाद, {result.name}!</h2>
+          <p style={{color:"var(--ink-soft)",fontSize:14}}>आपका आवेदन सफलतापूर्वक जमा हो गया है। कृपया यह आवेदन संख्या सुरक्षित रखें।</p>
+          <div className="app-no">{result.id}</div>
+          <p style={{color:"var(--ink-soft)",fontSize:13.5,maxWidth:440,margin:"10px auto 0"}}>
+            "स्थिति जांचें" टैब में जाकर इसी आवेदन संख्या और मोबाइल नंबर से अपने आवेदन की प्रगति देख सकते हैं।
+            स्वीकृति के बाद हमारी टीम आपसे दिए गए मोबाइल नंबर पर संपर्क करेगी।
+          </p>
+          <button className="btn btn-outline" style={{marginTop:20}} onClick={()=>{setResult(null); setF(emptyForm);}}>नया आवेदन भरें</button>
         </div>
       </div>
     );
@@ -670,12 +355,11 @@ function RegistrationForm(){
 
   return (
     <div className="card">
-      <Stepper stage="form"/>
       <div className="form-meta">
-        <h2>नौकरी हेतु आवेदन पत्र</h2>
+        <h2>स्वयंसेवक आवेदन पत्र</h2>
         <div className="meta-right">दिनांक: {todayStr()}</div>
       </div>
-      <div className="fee-note">₹ आवेदन शुल्क: मात्र ₹200/- (केवल दो सौ रुपये मात्र)</div>
+      <div className="free-note">✓ यह आवेदन पूर्णतः निःशुल्क है — किसी भी प्रकार का शुल्क न दें</div>
 
       <div className="section">
         <Field label="पद हेतु आवेदन" required>
@@ -780,9 +464,10 @@ function RegistrationForm(){
       </div>
 
       <div className="section">
-        <div className="section-title"><div className="section-num">8</div><h3>आवश्यक दस्तावेज (संलग्न करें)</h3></div>
+        <div className="section-title"><div className="section-num">8</div><h3>संलग्न दस्तावेज (वैकल्पिक)</h3></div>
+        <div className="hint" style={{marginBottom:10}}>कृपया कोई सरकारी पहचान पत्र (आधार आदि) या बैंक विवरण यहाँ अपलोड न करें — इनकी आवश्यकता नहीं है।</div>
         <div className="check-row">
-          {["आधार कार्ड","पासपोर्ट आकार फोटो","शैक्षणिक प्रमाण पत्र","बैंक पासबुक की प्रति","अन्य"].map(d=>(
+          {DOC_OPTIONS.map(d=>(
             <label className="check-opt" key={d}><input type="checkbox" checked={f.docs.includes(d)} onChange={()=>toggleDoc(d)}/>{d}</label>
           ))}
         </div>
@@ -811,7 +496,7 @@ function RegistrationForm(){
           {submitting? "जमा हो रहा है...":"आवेदन जमा करें"}
         </button>
       </div>
-      <div className="note">यह जानकारी Supabase डेटाबेस में सुरक्षित रूप से संग्रहित होगी।</div>
+      <div className="note">यह आवेदन पूर्णतः निःशुल्क है। स्वीकृति के बाद हमारी टीम आपसे संपर्क करेगी।</div>
     </div>
   );
 }
@@ -822,298 +507,56 @@ function StatusBadge({status}){
   return <span className={`badge ${cls}`}>{label}</span>;
 }
 
-function PaymentBadge({paymentStatus}){
-  const map={
-    unpaid:["भुगतान बकाया","declined"],
-    pending_verification:["सत्यापन लंबित","pending"],
-    paid:["भुगतान हुआ","approved"]
-  };
-  const [label,cls]=map[paymentStatus]||map.unpaid;
-  return <span className={`badge ${cls}`}>{label}</span>;
-}
-
 function StatusCheck(){
   const [mobile,setMobile]=useState("");
   const [appNo,setAppNo]=useState("");
   const [rec,setRec]=useState(null);
   const [err,setErr]=useState("");
   const [checked,setChecked]=useState(false);
-  const chanRef=useRef(null);
+  const [busy,setBusy]=useState(false);
 
-  const check=useCallback(async(silent)=>{
-    if(!silent) setErr("");
-    if(!appNo.trim()){ if(!silent) setErr("कृपया आवेदन पत्र संख्या भरें।"); return; }
+  const check=useCallback(async()=>{
+    setErr("");
+    if(!appNo.trim() || !mobile.trim()){ setErr("कृपया आवेदन संख्या और मोबाइल नंबर दोनों भरें।"); return; }
+    setBusy(true);
     try{
-      const data=await dbFetchByAppNo(appNo.trim());
-      if(!data){ if(!silent){ setRec(null); setErr("कोई आवेदन नहीं मिला। कृपया आवेदन संख्या जांचें।"); } setChecked(true); return; }
-      if(mobile.trim() && data.mobile!==mobile.trim()){
-        if(!silent){ setRec(null); setErr("मोबाइल नंबर आवेदन से मेल नहीं खाता।"); }
-        setChecked(true); return;
+      const {data,error}=await sb.rpc('check_application_status',{p_app_no:appNo.trim(), p_mobile:mobile.trim()});
+      if(error || !data || data.length===0){
+        setRec(null);
+        setErr("कोई मिलान आवेदन नहीं मिला। कृपया आवेदन संख्या और मोबाइल नंबर जांचें।");
+      } else {
+        setRec(data[0]);
       }
-      setRec(data); setErr(""); setChecked(true);
     }catch(e){
-      if(!silent) setErr("डेटा प्राप्त करने में त्रुटि हुई।");
+      setErr("डेटा प्राप्त करने में त्रुटि हुई।");
     }
+    setChecked(true);
+    setBusy(false);
   },[appNo,mobile]);
-
-  useEffect(()=>{
-    if(!rec) return;
-    const channel = sb.channel(`status-${rec.id}`)
-      .on('postgres_changes',{event:'UPDATE',schema:'public',table:TABLE,filter:`app_no=eq.${rec.id}`},
-        payload=>{ setRec(fromRow(payload.new)); })
-      .subscribe();
-    chanRef.current=channel;
-    const poll=setInterval(()=>check(true),6000);
-    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
-  },[rec && rec.id]);
 
   return (
     <div className="card">
       <div className="form-meta"><h2>आवेदन की स्थिति जांचें</h2></div>
       <div className="status-search">
-        <input type="text" placeholder="आवेदन पत्र संख्या (जैसे NMA/2026/0001)" value={appNo} onChange={e=>setAppNo(e.target.value)}/>
-        <input type="tel" placeholder="मोबाइल नंबर (वैकल्पिक पुष्टि हेतु)" maxLength="10" value={mobile} onChange={e=>setMobile(e.target.value.replace(/\D/g,''))}/>
-        <button className="btn btn-primary" onClick={()=>check(false)}>जांचें</button>
+        <input type="text" placeholder="आवेदन संख्या (जैसे NMA/2026/1234)" value={appNo} onChange={e=>setAppNo(e.target.value)}/>
+        <input type="tel" placeholder="मोबाइल नंबर" maxLength="10" value={mobile} onChange={e=>setMobile(e.target.value.replace(/\D/g,''))}/>
+        <button className="btn btn-primary" disabled={busy} onClick={check}>{busy?"जांच रहे हैं...":"जांचें"}</button>
       </div>
       {err && <div className="err" style={{padding:"0 22px 16px"}}>{err}</div>}
-      {rec && rec.paymentStatus==="paid" && rec.status==="approved" &&
-        <>
-          <Stepper stage="certificate"/>
-          <CertificateView rec={rec}/>
-          <div className="cert-actions" style={{paddingBottom:10}}>
-            <button className="btn btn-gold" onClick={()=>window.print()}>🖨 प्रिंट करें</button>
-          </div>
-        </>
-      }
-      {rec && !(rec.paymentStatus==="paid" && rec.status==="approved") &&
-        <>
-          <Stepper stage={rec.paymentStatus==="unpaid"?"form":"payment"}/>
-          <div className="status-card">
-            {rec.photo && <img src={rec.photo} className="status-photo"/>}
-            <div style={{marginBottom:10,fontSize:13,color:"var(--ink-soft)"}}>आवेदन पत्र संख्या</div>
-            <div className="app-no" style={{marginTop:0}}>{rec.id}</div>
-            <div style={{margin:"16px 0",display:'flex',gap:8,justifyContent:'center',flexWrap:'wrap'}}>
-              <StatusBadge status={rec.status}/>
-              <PaymentBadge paymentStatus={rec.paymentStatus}/>
-            </div>
-            <div style={{fontFamily:"'Poppins',sans-serif",fontSize:18,color:"var(--forest)",marginBottom:4}}>{rec.name}</div>
-            <div style={{fontSize:13,color:"var(--ink-soft)"}}>पद: {rec.position || '—'} · जमा दिनांक: {rec.submittedDate}</div>
-            {rec.status==="declined" && <p style={{color:"var(--maroon)",fontSize:13.5,marginTop:14}}>खेद है, आपका आवेदन इस बार स्वीकृत नहीं हो सका।</p>}
-            {rec.status!=="declined" && rec.paymentStatus==="unpaid" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>भुगतान शेष है। भुगतान पूर्ण करने हेतु "पंजीकरण फॉर्म" टैब में जाकर नया आवेदन खोलें या पूर्व आवेदन जारी रखें।</p>}
-            {rec.status!=="declined" && rec.paymentStatus==="pending_verification" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>आपका भुगतान सत्यापन हेतु लंबित है। सत्यापन के बाद प्रमाणपत्र यहीं उपलब्ध होगा।</p>}
-            {rec.status!=="declined" && rec.paymentStatus==="paid" && rec.status!=="approved" && <p style={{color:"#8A6316",fontSize:13.5,marginTop:14}}>भुगतान सत्यापित हो गया है, आवेदन अनुमोदन हेतु लंबित है।</p>}
-          </div>
-        </>
+      {rec &&
+        <div className="status-card">
+          {rec.photo_base64 && <img src={rec.photo_base64} className="status-photo"/>}
+          <div style={{marginBottom:10,fontSize:13,color:"var(--ink-soft)"}}>आवेदन संख्या</div>
+          <div className="app-no" style={{marginTop:0}}>{rec.app_no}</div>
+          <div style={{margin:"16px 0"}}><StatusBadge status={rec.status}/></div>
+          <div style={{fontFamily:"'Poppins',sans-serif",fontSize:18,color:"var(--forest)",marginBottom:4}}>{rec.name}</div>
+          <div style={{fontSize:13,color:"var(--ink-soft)"}}>पद: {rec.position || '—'} · जिला: {rec.district || '—'}</div>
+          {rec.status==="declined" && <p style={{color:"var(--maroon)",fontSize:13.5,marginTop:14}}>खेद है, आपका आवेदन इस बार स्वीकृत नहीं हो सका।</p>}
+          {rec.status==="pending" && <p style={{color:"#8A6416",fontSize:13.5,marginTop:14}}>आपका आवेदन समीक्षाधीन है। स्वीकृति मिलते ही हमारी टीम आपसे संपर्क करेगी।</p>}
+          {rec.status==="approved" && <p style={{color:"#1F6B37",fontSize:13.5,marginTop:14}}>बधाई हो! आपका आवेदन स्वीकृत हो गया है। हमारी टीम शीघ्र ही आपसे संपर्क करेगी।</p>}
+        </div>
       }
       {checked && !rec && !err && <div className="empty">कोई परिणाम नहीं मिला।</div>}
-    </div>
-  );
-}
-
-function AdminLogin({onLogin}){
-  const [pw,setPw]=useState("");
-  const [err,setErr]=useState("");
-  const tryLogin=()=>{
-    if(pw==="admin123") onLogin();
-    else setErr("गलत पासवर्ड। कृपया पुनः प्रयास करें।");
-  };
-  return (
-    <div className="card admin-login">
-      <h2 style={{fontFamily:"'Poppins',sans-serif",color:"var(--forest)"}}>एडमिन लॉगिन</h2>
-      <p style={{fontSize:13,color:"var(--ink-soft)"}}>डेमो पासवर्ड: <strong>admin123</strong></p>
-      <input type="password" value={pw} onChange={e=>setPw(e.target.value)} placeholder="पासवर्ड दर्ज करें" onKeyDown={e=>e.key==='Enter'&&tryLogin()}/>
-      {err && <div className="err">{err}</div>}
-      <button className="btn btn-primary" style={{width:"100%"}} onClick={tryLogin}>प्रवेश करें</button>
-    </div>
-  );
-}
-
-function toCSV(records){
-  const cols=["id","status","name","parentName","dob","gender","mobile","email","village","post","tehsil","district","state","pin","qualification","board","passYear","percent","experienceDetail","experienceYears","hasVehicle","vehicleNo","hasLicense","licenseNo","area","docs","place","signature","submittedDate"];
-  const esc=v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`;
-  const rows=[cols.join(",")];
-  records.forEach(r=>{
-    rows.push(cols.map(c=>esc(c==='docs' ? (r.docs||[]).join('; ') : r[c])).join(","));
-  });
-  return rows.join("\n");
-}
-function downloadCSV(records){
-  const blob=new Blob([toCSV(records)],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download=`nasha-mukti-registrations-${Date.now()}.csv`;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-function AdminPanel(){
-  const [loggedIn,setLoggedIn]=useState(false);
-  const [records,setRecords]=useState([]);
-  const [loading,setLoading]=useState(true);
-  const [loadErr,setLoadErr]=useState("");
-  const [search,setSearch]=useState("");
-  const [filter,setFilter]=useState("all");
-  const [selected,setSelected]=useState(null);
-  const [toast,setToast]=useState("");
-
-  const load=useCallback(async()=>{
-    try{
-      const recs=await dbFetchAll();
-      setRecords(recs);
-      setLoadErr("");
-    }catch(e){
-      setLoadErr("डेटा लोड नहीं हो सका। कृपया जांचें कि Supabase टेबल 'registrations' बन चुकी है और RLS नीतियां सही हैं (नीचे नोट देखें)।");
-    }
-    setLoading(false);
-  },[]);
-
-  useEffect(()=>{
-    if(!loggedIn) return;
-    load();
-    const channel = sb.channel('admin-registrations')
-      .on('postgres_changes',{event:'*',schema:'public',table:TABLE}, ()=>load())
-      .subscribe();
-    const poll=setInterval(load,6000);
-    return ()=>{ sb.removeChannel(channel); clearInterval(poll); };
-  },[loggedIn,load]);
-
-  const showToast=(msg)=>{ setToast(msg); setTimeout(()=>setToast(""),2500); };
-
-  const updateStatus=async(rec,status)=>{
-    try{
-      await dbUpdateStatus(rec.id,status);
-      const updated={...rec,status};
-      setRecords(prev=>prev.map(r=>r.id===rec.id?updated:r));
-      setSelected(updated);
-      showToast(status==="approved"?`${rec.name} का आवेदन स्वीकृत किया गया`: status==="declined"?`${rec.name} का आवेदन अस्वीकृत किया गया`:"स्थिति अद्यतन की गई");
-    }catch(e){
-      showToast("स्थिति अपडेट नहीं हो सकी।");
-    }
-  };
-
-  const updatePayment=async(rec,paymentStatus)=>{
-    try{
-      await dbUpdatePayment(rec.id,{payment_status:paymentStatus});
-      const updated={...rec,paymentStatus};
-      setRecords(prev=>prev.map(r=>r.id===rec.id?updated:r));
-      setSelected(updated);
-      showToast(paymentStatus==="paid"?`${rec.name} का भुगतान सत्यापित किया गया`:"भुगतान स्थिति अद्यतन की गई");
-    }catch(e){
-      showToast("भुगतान स्थिति अपडेट नहीं हो सकी।");
-    }
-  };
-
-  const filtered=records.filter(r=>{
-    if(filter!=="all" && r.status!==filter) return false;
-    if(!search.trim()) return true;
-    const q=search.trim().toLowerCase();
-    return (r.name||"").toLowerCase().includes(q) || (r.mobile||"").includes(q) || (r.id||"").toLowerCase().includes(q) || (r.district||"").toLowerCase().includes(q);
-  });
-
-  const counts={
-    all:records.length,
-    pending:records.filter(r=>r.status==="pending").length,
-    approved:records.filter(r=>r.status==="approved").length,
-    declined:records.filter(r=>r.status==="declined").length,
-    paid:records.filter(r=>r.paymentStatus==="paid").length,
-    payPending:records.filter(r=>r.paymentStatus==="pending_verification").length,
-  };
-
-  if(!loggedIn) return <AdminLogin onLogin={()=>setLoggedIn(true)}/>;
-
-  return (
-    <div>
-      {loadErr &&
-        <div className="setup-warning">⚠️ {loadErr}</div>}
-
-      <div className="stats">
-        <div className="stat"><div className="num">{counts.all}</div><div className="lbl">कुल आवेदन</div></div>
-        <div className="stat"><div className="num">{counts.pending}</div><div className="lbl">लंबित</div></div>
-        <div className="stat"><div className="num">{counts.approved}</div><div className="lbl">स्वीकृत</div></div>
-        <div className="stat"><div className="num">{counts.declined}</div><div className="lbl">अस्वीकृत</div></div>
-        <div className="stat"><div className="num">{counts.payPending}</div><div className="lbl">भुगतान सत्यापन लंबित</div></div>
-        <div className="stat"><div className="num">{counts.paid}</div><div className="lbl">भुगतान सत्यापित</div></div>
-      </div>
-
-      <div className="admin-toolbar">
-        <input type="text" placeholder="नाम, मोबाइल, आवेदन संख्या या जिला से खोजें..." value={search} onChange={e=>setSearch(e.target.value)}/>
-        {[["all","सभी"],["pending","लंबित"],["approved","स्वीकृत"],["declined","अस्वीकृत"]].map(([k,l])=>(
-          <button key={k} className={`filter-chip ${filter===k?'active':''}`} onClick={()=>setFilter(k)}>{l} ({counts[k]})</button>
-        ))}
-        <button className="btn btn-outline btn-sm" onClick={()=>downloadCSV(filtered)}>⬇ CSV भेजें / डाउनलोड करें</button>
-      </div>
-
-      {loading && <div className="loading">लोड हो रहा है...</div>}
-      {!loading && filtered.length===0 && <div className="empty">कोई आवेदन नहीं मिला।</div>}
-      {!loading && filtered.map(r=>(
-        <div className="app-row" key={r.id} onClick={()=>setSelected(r)}>
-          {r.photo ? <img src={r.photo} className="app-row-thumb"/> : <div className="app-row-thumb"/>}
-          <div className="app-row-top">
-            <div>
-              <div className="app-row-name">{r.name}</div>
-              <div className="app-row-sub">{r.id} · {r.mobile} · {r.district}{r.state?`, ${r.state}`:''}</div>
-            </div>
-            <div style={{display:'flex',gap:6,flexWrap:'wrap',justifyContent:'flex-end'}}>
-              <StatusBadge status={r.status}/>
-              <PaymentBadge paymentStatus={r.paymentStatus}/>
-            </div>
-          </div>
-        </div>
-      ))}
-
-      {selected &&
-        <div className="modal-bg" onClick={()=>setSelected(null)}>
-          <div className="modal" onClick={e=>e.stopPropagation()}>
-            <div className="modal-head">
-              <h3>{selected.name}</h3>
-              <button className="modal-close" onClick={()=>setSelected(null)}>×</button>
-            </div>
-            <div className="modal-body">
-              {selected.photo && <img src={selected.photo} className="modal-photo"/>}
-              <div style={{marginBottom:12,display:'flex',gap:8,flexWrap:'wrap'}}>
-                <StatusBadge status={selected.status}/>
-                <PaymentBadge paymentStatus={selected.paymentStatus}/>
-              </div>
-              {[
-                ["आवेदन संख्या",selected.id],
-                ["पद",selected.position],
-                ["पिता/पति का नाम",selected.parentName],
-                ["जन्म तिथि",selected.dob],
-                ["आयु",calcAge(selected.dob)],
-                ["लिंग",selected.gender],
-                ["मोबाइल",selected.mobile],
-                ["ईमेल",selected.email],
-                ["पता",[selected.village,selected.post,selected.tehsil,selected.district,selected.state,selected.pin].filter(Boolean).join(", ")],
-                ["योग्यता",selected.qualification==="अन्य"?selected.qualificationOther:selected.qualification],
-                ["बोर्ड/विश्वविद्यालय",selected.board],
-                ["उत्तीर्ण वर्ष",selected.passYear],
-                ["प्रतिशत/ग्रेड",selected.percent],
-                ["कार्य अनुभव",selected.experienceDetail],
-                ["कुल अनुभव (वर्ष)",selected.experienceYears],
-                ["दोपहिया वाहन",selected.hasVehicle + (selected.vehicleNo?` (${selected.vehicleNo})`:'')],
-                ["ड्राइविंग लाइसेंस",selected.hasLicense + (selected.licenseNo?` (${selected.licenseNo})`:'')],
-                ["इच्छित क्षेत्र",selected.area],
-                ["संलग्न दस्तावेज",[...(selected.docs||[]).filter(d=>d!=="अन्य"), (selected.docs||[]).includes("अन्य")?selected.docsOther:null].filter(Boolean).join(", ")],
-                ["हस्ताक्षर",selected.signature],
-                ["जमा दिनांक",selected.submittedDate],
-                ["UTR / लेन-देन संख्या",selected.utr],
-              ].map(([k,v])=>(
-                <div className="detail-row" key={k}><div className="k">{k}</div><div>{v || "—"}</div></div>
-              ))}
-            </div>
-            <div className="modal-actions">
-              <button className="btn btn-sm btn-approve" onClick={()=>updatePayment(selected,"paid")} disabled={selected.paymentStatus==="paid"}>✓ भुगतान सत्यापित करें</button>
-              {selected.paymentStatus==="paid" &&
-                <button className="btn btn-sm btn-outline" onClick={()=>updatePayment(selected,"unpaid")}>भुगतान रद्द करें</button>}
-              <button className="btn btn-sm btn-approve" onClick={()=>updateStatus(selected,"approved")} disabled={selected.status==="approved"}>स्वीकृत करें</button>
-              <button className="btn btn-sm btn-decline" onClick={()=>updateStatus(selected,"declined")} disabled={selected.status==="declined"}>अस्वीकार करें</button>
-              {selected.status!=="pending" &&
-                <button className="btn btn-sm btn-outline" onClick={()=>updateStatus(selected,"pending")}>लंबित करें</button>}
-            </div>
-          </div>
-        </div>
-      }
-      {toast && <div className="toast">{toast}</div>}
     </div>
   );
 }
@@ -1132,14 +575,12 @@ function App(){
         </div>
       </div>
       <div className="tabbar">
-        <button className={`tab-btn ${tab==='form'?'active':''}`} onClick={()=>setTab('form')}>पंजीकरण फॉर्म</button>
+        <button className={`tab-btn ${tab==='form'?'active':''}`} onClick={()=>setTab('form')}>आवेदन फॉर्म</button>
         <button className={`tab-btn ${tab==='status'?'active':''}`} onClick={()=>setTab('status')}>स्थिति जांचें</button>
-        <button className={`tab-btn ${tab==='admin'?'active':''}`} onClick={()=>setTab('admin')}>एडमिन पैनल</button>
       </div>
       <div className="content">
         {tab==='form' && <RegistrationForm/>}
         {tab==='status' && <StatusCheck/>}
-        {tab==='admin' && <AdminPanel/>}
       </div>
     </div>
   );
