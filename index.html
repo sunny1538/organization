@@ -304,7 +304,6 @@ function RegistrationForm(){
   };
 
   const validate=()=>{
-    if(!f.position.trim()) return "कृपया पद हेतु आवेदन भरें।";
     if(!f.name.trim()) return "कृपया आवेदक का नाम भरें।";
     if(!f.dob) return "कृपया जन्म तिथि भरें।";
     if(!f.gender) return "कृपया लिंग चुनें।";
@@ -358,12 +357,6 @@ function RegistrationForm(){
         <div className="meta-right">दिनांक: {todayStr()}</div>
       </div>
       <div className="free-note">✓ यह आवेदन पूर्णतः निःशुल्क है — किसी भी प्रकार का शुल्क न दें</div>
-
-      <div className="section">
-        <Field label="पद हेतु आवेदन" required>
-          <input type="text" value={f.position} onChange={e=>set('position',e.target.value)} placeholder="जिस पद हेतु आवेदन कर रहे हैं वह लिखें"/>
-        </Field>
-      </div>
 
       <div className="section">
         <div className="section-title"><div className="section-num">1</div><h3>व्यक्तिगत जानकारी</h3></div>
